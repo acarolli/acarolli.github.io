@@ -10,7 +10,7 @@ window.onload = () => {
 function staticLoadPlaces() {
     return [
         {
-            name: 'Magnemite',
+            name: 'Articuno',
             location: {
                 // decomment the following and add coordinates:
                  lat: -19.8158790,
