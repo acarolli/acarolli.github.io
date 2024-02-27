@@ -11,16 +11,13 @@ function staticLoadPlaces() {
         {
             name: 'Articuno',
             location: {
-                // decomment the following and add coordinates:
-                 lat: -19.815615,
-                 lng: -43.154278,
-                 elev: 715.4,
+                lat: -19.815615,
+                lng: -43.154278,
+                elev: 715.4,
             },
         },
     ];
 }
-
-
 
 var models = [
     {
