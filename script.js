@@ -16,6 +16,14 @@ function staticLoadPlaces() {
                 //elev: 715.4,
             },
         },
+        {
+            name: 'Articuno',
+            location: {
+                lat: -22.419336,
+                lng: -45.469415,
+                //elev: 715.4,
+            },
+        },
     ];
 }
 
