@@ -8,7 +8,7 @@ window.onload = () => {
 
 function staticLoadPlaces() {
     return [
-        {
+        /*{
             name: 'treasure',
             location: {
                 lat: -19.815615,
@@ -31,7 +31,7 @@ function staticLoadPlaces() {
                 lng: -43.964001435893145,
                 //elev: 715.4,
             },
-        },
+        },*/
         {
             name: 'treasure',
             location: {
