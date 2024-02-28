@@ -35,8 +35,8 @@ function staticLoadPlaces() {
         {
             name: 'treasure',
             location: {
-                lat: -20.071923729817986,
-                lng: -43.414076378154384,
+                lat: -20.071720,
+                lng: -43.414268,
                 //elev: 715.4,
             },
         },
