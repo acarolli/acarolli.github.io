@@ -9,7 +9,7 @@ window.onload = () => {
 function staticLoadPlaces() {
     return [
         {
-            name: 'Articuno',
+            name: 'treasure',
             location: {
                 lat: -19.815615,
                 lng: -43.154278,
@@ -17,10 +17,18 @@ function staticLoadPlaces() {
             },
         },
         {
-            name: 'Articuno',
+            name: 'treasure',
             location: {
                 lat: -22.419336,
                 lng: -45.469415,
+                //elev: 715.4,
+            },
+        },
+        {
+            name: 'treasure',
+            location: {
+                lat: -19.98770155010817,
+                lng: -43.964001435893145,
                 //elev: 715.4,
             },
         },
