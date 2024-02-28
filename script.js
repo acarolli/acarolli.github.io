@@ -32,6 +32,14 @@ function staticLoadPlaces() {
                 //elev: 715.4,
             },
         },
+        {
+            name: 'treasure',
+            location: {
+                lat: -20.071959,
+                lng: -43.41148,
+                //elev: 715.4,
+            },
+        },
     ];
 }
 
