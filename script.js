@@ -8,8 +8,8 @@ window.onload = () => {
 
 function staticLoadPlaces() {
     return [
-        /*{
-            name: 'treasure',
+        {
+            name: '01',
             location: {
                 lat: -19.815615,
                 lng: -43.154278,
@@ -17,7 +17,7 @@ function staticLoadPlaces() {
             },
         },
         {
-            name: 'treasure',
+            name: '02',
             location: {
                 lat: -22.419336,
                 lng: -45.469415,
@@ -25,18 +25,18 @@ function staticLoadPlaces() {
             },
         },
         {
-            name: 'treasure',
+            name: '03',
             location: {
                 lat: -19.98770155010817,
                 lng: -43.964001435893145,
                 //elev: 715.4,
             },
-        },*/
+        },
         {
-            name: 'treasure',
+            name: '04',
             location: {
-                lat: -20.071720,
-                lng: -43.414268,
+                lat: -20.07188369083826, 
+                lng: -43.41430990192027,
                 //elev: 715.4,
             },
         },
