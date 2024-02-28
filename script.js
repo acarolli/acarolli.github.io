@@ -29,7 +29,7 @@ function staticLoadPlaces() {
 
 var models = [
     {
-        url: './assets/magnemite/scene.gltf',
+        url: './assets/treasure/scene.gltf',
         scale: '0.5 0.5 0.5',
         info: 'Magnemite, Lv. 5, HP 10/10',
         rotation: '0 180 0',
