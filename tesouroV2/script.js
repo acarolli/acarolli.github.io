@@ -124,3 +124,43 @@ function renderPlaces(places) {
         scene.appendChild(model);
     });
 }
+<script>
+        // Atualização do frame
+        AFRAME.registerComponent('atualizacao-frame', {
+            tick: function () {
+                // Obter a posição da câmera (celular)
+                const camera = this.el.sceneEl.camera.el.object3D.getWorldPosition();
+
+                // Obter a posição do objeto AR
+                const objetoAR = this.el.object3D.getWorldPosition();
+
+                // Calcular a distância entre a câmera e o objeto AR
+                const distancia = camera.distanceTo(objetoAR);
+
+                // Atualizar visibilidade do texto "Você está próximo de uma dica" e do botão
+                const textoProximo = document.getElementById("textoProximo");
+                const botaoSite = document.getElementById("botaoSite");
+
+                if (distancia <= 200) {
+                    textoProximo.setAttribute("visible", true);
+                    document.getElementById("distancia").setAttribute("visible", true);
+                    document.getElementById("distancia").setAttribute("text", "value", "Distância: " + distancia.toFixed(2) + " metros");
+
+                    if (distancia <= 10) {
+                        botaoSite.setAttribute("visible", true);
+                    } else {
+                        botaoSite.setAttribute("visible", false);
+                    }
+                } else {
+                    textoProximo.setAttribute("visible", false);
+                    botaoSite.setAttribute("visible", false);
+                    document.getElementById("distancia").setAttribute("visible", false);
+                }
+            }
+        });
+
+        // Abrir o site ao clicar no botão
+        document.getElementById("botaoSite").addEventListener("click", function() {
+            window.open("https://seusite.com", "_blank");
+        });
+    </script>

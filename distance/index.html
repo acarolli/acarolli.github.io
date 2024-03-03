@@ -1,114 +1,23 @@
-
-        <!-- latitude: -19.973222; longitude: -43.969979" class="objeto-ar"></a-entity>
-        <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.974222; longitude: -43.968979" class="objeto-ar" -->
-        
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR GPS Application</title>
-    <!-- Include A-Frame library for AR -->
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <title>AR Application</title>
+    <!-- Include necessary CSS and JavaScript files -->
+    <script src="./script.js"></script>
 </head>
 <body>
-     <a-scene vr-mode-ui="enabled: false">
-        <!-- Camera -->
-        <a-entity gps-camera rotation-reader></a-entity>
+    <!-- AR display container -->
+    <div id="ar-container"></div>
 
+    <!-- Text messages container -->
+    <div id="text-messages">
+        <p id="proximity-message"></p>
+        <p id="distance-message"></p>
+        <button id="open-website-button" style="display: none;">Open Website</button>
+    </div>
 
-        <!-- AR Objects -->
-        <!-- Replace the URLs with the actual URLs of your GLTF objects -->
-        <a-entity gltf-model="#ar-object-1" gps-entity-place="latitude: -19.973222; longitude: -43.969979;"></a-entity>
-        <!-- Repeat the above line for each AR object -->
-
-        <!-- AR Object Models -->
-        <!-- Replace the src attribute with the actual URL of your GLTF object -->
-        <a-assets>
-            <a-asset-item id="ar-object-1" src="./assets/treasure/scene.gltf"></a-asset-item>
-            <!-- Add more assets for each AR object -->
-        </a-assets>
-
-        <!-- Text for proximity notification -->
-        <a-entity id="proximity-text" position="0 1.5 -5" visible="false" text="value: You are close to a tip; align: center; width: 5;"></a-entity>
-
-        <!-- Text for distance -->
-        <a-entity id="distance-text" position="0 1 -5" visible="false" text="value: Distance: ; align: center; width: 5;"></a-entity>
-
-        <!-- Button for opening website -->
-        <a-entity id="button" position="0 0 -5" visible="false">
-            <a-plane color="blue" width="1" height="0.5" onClick="openWebsite()" cursor-listener></a-plane>
-            <a-text value="Open Website" align="center" position="0 0 0.1"></a-text>
-        </a-entity>
-    </a-scene>
-
-    <script>
-    // Function to calculate distance between two GPS coordinates
-    function calculateDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371e3; // Earth's radius in meters
-        const φ1 = lat1 * Math.PI / 180;
-        const φ2 = lat2 * Math.PI / 180;
-        const Δφ = (lat2 - lat1) * Math.PI / 180;
-        const Δλ = (lon2 - lon1) * Math.PI / 180;
-
-        const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-                Math.cos(φ1) * Math.cos(φ2) *
-                Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        return R * c;
-    }
-
-    // Function to open website
-    function openWebsite(url) {
-        window.open(url, '_blank');
-    }
-
-    // Function to update proximity text and button visibility
-    function updateProximity(position) {
-        // Replace the coordinates below with the coordinates of your AR objects
-        const arObjectCoordinates = [
-            { latitude: -19.973222, longitude: -43.969979, url: 'https://www.invisio360.com' },
-            //{ latitude: AR_OBJECT_LATITUDE_2, longitude: AR_OBJECT_LONGITUDE_2, url: 'WEBSITE_URL_2' },
-            // Add more coordinates and URLs for each AR object
-        ];
-
-        let nearestDistance = Infinity;
-        let nearestObjectIndex = -1;
-
-        arObjectCoordinates.forEach((coord, index) => {
-            const distance = calculateDistance(position.coords.latitude, position.coords.longitude, coord.latitude, coord.longitude);
-            if (distance < nearestDistance) {
-                nearestDistance = distance;
-                nearestObjectIndex = index;
-            }
-        });
-
-        if (nearestDistance <= 10) {
-            document.getElementById('button').setAttribute('visible', 'true');
-            document.getElementById('button').setAttribute('onclick', 'openWebsite("' + arObjectCoordinates[nearestObjectIndex].url + '")');
-        } else {
-            document.getElementById('button').setAttribute('visible', 'false');
-            document.getElementById('button').removeAttribute('onclick');
-        }
-
-        if (nearestDistance <= 200) {
-            document.getElementById('proximity-text').setAttribute('visible', 'true');
-            document.getElementById('distance-text').setAttribute('visible', 'true');
-            document.getElementById('distance-text').setAttribute('text', 'value', 'Distance: ' + nearestDistance.toFixed(2) + ' meters');
-        } else {
-            document.getElementById('proximity-text').setAttribute('visible', 'false');
-            document.getElementById('distance-text').setAttribute('visible', 'false');
-        }
-    }
-
-    // Watch for location changes
-    if ('geolocation' in navigator) {
-        navigator.geolocation.watchPosition(updateProximity);
-    } else {
-        console.error('Geolocation is not supported by this browser.');
-    }
-</script>
-
+    <!-- Include necessary scripts -->
 </body>
 </html>
