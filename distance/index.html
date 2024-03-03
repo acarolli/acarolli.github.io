@@ -4,16 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treasure Hunt AR</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="ar-scene-container"></div>
-    <div id="info-text"></div>
-    <button id="treasure-button" onclick="openTreasureWebsite()">Open Treasure Website</button>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@argonjs/argon"></script>
-    <script src="main.js"></script>
+    <script src="https://raw.githack.com/jeromeetienne/ar.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene  
+        vr-mode-ui='enabled: false' 
+        embedded
+        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+        <!-- Camera & Location Permissions -->
+        <a-camera gps-camera="minDistance: 0; maxDistance: 4700;" rotation-reader></a-camera>
+
+        <!-- Objects -->
+        <a-entity id="object1" gltf-model="url(path_to_model/object1.gltf)" scale="0.1 0.1 0.1" position="-19.973222 -43.969979 0" visible="false"></a-entity>
+        <!-- Add similar entities for all 25 objects -->
+
+        <!-- Texts -->
+        <a-text id="proximityText" value="" color="black" position="-0.5 0.3 -1" align="center"></a-text>
+        <a-text id="distanceText" value="" color="black" position="-0.5 0.1 -1" align="center"></a-text>
+
+        <!-- Button -->
+        <a-entity id="button" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="-0.5 -0.2 -1" visible="false" onclick="openWebsite()"></a-entity>
+    </a-scene>
+
+    <script>
+        // Function to calculate distance between two coordinates
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Radius of the earth in meters
+            const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+            const φ2 = lat2 * Math.PI/180;
+            const Δφ = (lat2-lat1) * Math.PI/180;
+            const Δλ = (lon2-lon1) * Math.PI/180;
+
+            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            const d = R * c; // Distance in meters
+            return d;
+        }
+
+        // Function to update proximity text and distance
+        function updateProximity(distance) {
+            const proximityText = document.getElementById('proximityText');
+            const distanceText = document.getElementById('distanceText');
+            if (distance <= 200) {
+                proximityText.setAttribute('value', 'You are close to a tip');
+                distanceText.setAttribute('value', 'Distance: ' + distance.toFixed(2) + ' meters');
+            } else {
+                proximityText.setAttribute('value', '');
+                distanceText.setAttribute('value', '');
+            }
+        }
+
+        // Function to open website
+        function openWebsite() {
+            // Implement your logic to open a different website for each object
+            alert('Opening website...');
+        }
+
+        // Event listener for location update
+        window.addEventListener('gps-camera-update-position', function(e) {
+            const userLatitude = e.detail.position.latitude;
+            const userLongitude = e.detail.position.longitude;
+
+            // Coordinates for each object
+            const objectCoordinates = [
+                { latitude: OBJECT1_LATITUDE, longitude: OBJECT1_LONGITUDE },
+                // Add coordinates for all 25 objects
+            ];
+
+            // Check distance for each object
+            objectCoordinates.forEach(function(coord) {
+                const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
+                if (distance <= 200) {
+                    // Show button if user is 10 meters away
+                    const button = document.getElementById('button');
+                    if (distance <= 10) {
+                        button.setAttribute('visible', 'true');
+                    } else {
+                        button.setAttribute('visible', 'false');
+                    }
+
+                    // Show proximity and distance text
+                    updateProximity(distance);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
