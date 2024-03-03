@@ -62,7 +62,7 @@ function staticLoadPlaces() {
 var models = [
     {
         url: './assets/treasure/scene.gltf',
-        scale: '0.01 0.01 0.01',
+        scale: '0.1 0.1 0.1',
         info: 'Você encontrou uma pista!',
         rotation: '0 180 0',
     },
