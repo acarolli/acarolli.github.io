@@ -1,16 +1,24 @@
-latitude: -19.973222; longitude: -43.969979"></a-entity><!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR.js com Distância e Interação</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.8/aframe/build/aframe-ar.js"></script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Caça Ao Tesouro - BH</title>
+    <script src='https://aframe.io/releases/0.9.2/aframe.min.js'></script>
+    <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script>
+        THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
+    </script>
+    <!--<script src="./script.js"></script>-->
+    <!--<link rel="stylesheet" type="text/css" href="./style.css"/>-->
 </head>
 <body style="margin: 0; overflow: hidden;">
+	    <div class="centered instructions"></div>
     <a-scene  vr-mode-ui='enabled: false' embedded arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
         <!-- Câmera para visualização -->
-        <a-entity camera></a-entity>
+        <a-entity gps-camera></a-entity>
 
         <!-- Adicione seus marcadores de Realidade Aumentada -->
         <!-- Substitua as coordenadas lat/long/alt para cada objeto -->
