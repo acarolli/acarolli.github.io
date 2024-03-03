@@ -11,7 +11,7 @@
     <script>
         THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
     </script>
-    <script src="./script.js"></script>
+    <!-- <script src="./script.js"></script>-->
     <link rel="stylesheet" type="text/css" href="./style.css"/>
 </head>
 
@@ -22,8 +22,9 @@
         embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
     <a-camera gps-camera="minDistance: 0; maxDistance: 4700;" rotation-reader></a-camera>
+    <a-entity id="object1" gltf-model="./assets/treasure/scene.gltf" scale="0.1 0.1 0.1" position="-19.973222 -43.969979 0" visible="false"></a-entity>
 </a-scene>
 <div class="centered">
-    
+    <button data-action="change"></button>
 </div>
 </body>
