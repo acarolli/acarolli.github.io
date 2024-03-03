@@ -4,20 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR Application</title>
-    <!-- Include necessary CSS and JavaScript files -->
-    <script src="./script.js"></script>
+    <!-- Include necessary CSS for AR.js -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <!-- Include necessary JavaScript for geolocation -->
+    <script>
+        function init() {
+            navigator.geolocation.getCurrentPosition(position => {
+                const userLocation = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+
+                // Calculate distance between two points
+                function getDistance(lat1, lon1, lat2, lon2) {
+                    const R = 6371e3; // Radius of the Earth in meters
+                    const φ1 = lat1 * Math.PI / 180; // φ, λ in radians
+                    const φ2 = lat2 * Math.PI / 180;
+                    const Δφ = (lat2 - lat1) * Math.PI / 180;
+                    const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+                    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                            Math.cos(φ1) * Math.cos(φ2) *
+                            Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+                    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+                    const distance = R * c; // Distance in meters
+                    return distance;
+                }
+
+                // Array of AR object locations
+                const arObjectLocations = [
+                    { latitude: -19.973222, longitude: -43.969979, gltf: './assets/treasure/scene.gltf' },
+                    // Define other AR object locations
+                ];
+
+                // Check distance to each AR object
+                arObjectLocations.forEach(object => {
+                    const distance = getDistance(userLocation.latitude, userLocation.longitude, object.latitude, object.longitude);
+
+                    if (distance <= 200) {
+                        // Show proximity message
+                        document.getElementById('proximity-message').innerText = 'You are close to a tip';
+                        // Show distance from the object
+                        document.getElementById('distance-message').innerText = `Distance: ${distance.toFixed(2)} meters`;
+
+                        if (distance <= 10) {
+                            // Show open website button
+                            document.getElementById('open-website-button').style.display = 'block';
+                            // Handle button click event
+                            document.getElementById('open-website-button').addEventListener('click', () => {
+                                // Open website
+                                window.open('https://example.com', '_blank');
+                            });
+                        }
+                    }
+                });
+            });
+        }
+    </script>
 </head>
-<body>
+<body onload="init()">
     <!-- AR display container -->
-    <div id="ar-container"></div>
+    <a-scene embedded arjs>
+        <!-- AR camera and location-based anchor -->
+        <a-entity gps-camera-tool></a-entity>
 
-    <!-- Text messages container -->
-    <div id="text-messages">
-        <p id="proximity-message"></p>
-        <p id="distance-message"></p>
-        <button id="open-website-button" style="display: none;">Open Website</button>
-    </div>
+        <!-- AR objects -->
+        <a-entity gltf-model="url(object1.gltf)" gps-entity-place="latitude: ...; longitude: ..."></a-entity>
+        <!-- Define other AR objects -->
 
-    <!-- Include necessary scripts -->
+        <!-- Text messages container -->
+        <div id="text-messages" style="position: absolute; top: 20px; left: 20px; z-index: 999;">
+            <p id="proximity-message"></p>
+            <p id="distance-message"></p>
+            <button id="open-website-button" style="display: none;">Open Website</button>
+        </div>
+    </a-scene>
 </body>
 </html>
