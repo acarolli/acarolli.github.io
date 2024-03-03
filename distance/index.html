@@ -3,100 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Application</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <title>Treasure Hunt AR</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body style="margin: 0; overflow: hidden;">
-    <a-scene 
-        vr-mode-ui='enabled: false' 
-        embedded
-        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
-        <!-- Define 3D objects with their GPS coordinates -->
-        <!-- Ensure you have GLTF files for each object -->
-        <a-entity gltf-model="#object1" gps-entity-place="latitude: -19.973222; longitude: -43.969979;"></a-entity>
-        <!-- Add more objects as needed -->
+<body>
+    <div id="ar-scene-container"></div>
+    <div id="info-text"></div>
+    <button id="treasure-button" onclick="openTreasureWebsite()">Open Treasure Website</button>
 
-        <!-- Define GLTF models for your objects -->
-        <a-assets>
-            <a-asset-item id="object1" src="./assets/treasure/scene.gltf"></a-asset-item>
-            <!-- Add more object assets here -->
-        </a-assets>
-
-        <!-- Text elements for distance and alert -->
-  <div id="distanceAlert" style="position: fixed; top: 10px; left: 10px; background-color: rgba(255, 255, 255, 0.7); padding: 10px; display: none;"></div>
-  <div id="buttonContainer" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: none;">
-    <button onclick="openWebsite()">Validar</button>
-  </div>
-
-  <script>
-    // Function to calculate distance between two GPS coordinates
-    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-      var R = 6371; // Radius of the earth in km
-      var dLat = deg2rad(lat2 - lat1); // deg2rad below
-      var dLon = deg2rad(lon2 - lon1);
-      var a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2)
-        ;
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      var d = R * c; // Distance in km
-      return d;
-    }
-
-    function deg2rad(deg) {
-      return deg * (Math.PI / 180)
-    }
-
-    // Function to show distance alert
-    function showDistanceAlert(distance) {
-      var alertElement = document.getElementById('distanceAlert');
-      alertElement.innerHTML = "You are close to a tip. Distance: " + distance.toFixed(2) + " meters";
-      alertElement.style.display = 'block';
-    }
-
-    // Function to hide distance alert
-    function hideDistanceAlert() {
-      document.getElementById('distanceAlert').style.display = 'none';
-    }
-
-    // Function to open website
-    function openWebsite() {
-      window.open('https://example.com', '_blank');
-    }
-
-    // Check distance when user moves
-    setInterval(function () {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        // User's current position
-        var userLat = position.coords.latitude;
-        var userLon = position.coords.longitude;
-
-        // Calculate distance for each object
-        var objects = document.querySelectorAll('[gps-entity-place]');
-        objects.forEach(function (object) {
-          var objLat = object.getAttribute('gps-entity-place').latitude;
-          var objLon = object.getAttribute('gps-entity-place').longitude;
-
-          var distance = getDistanceFromLatLonInKm(userLat, userLon, objLat, objLon) * 1000; // Convert to meters
-
-          // Show alert if user is within 200 meters
-          if (distance <= 200) {
-            showDistanceAlert(distance);
-          } else {
-            hideDistanceAlert();
-          }
-
-          // Show button if user is within 10 meters
-          if (distance <= 10) {
-            document.getElementById('buttonContainer').style.display = 'block';
-          } else {
-            document.getElementById('buttonContainer').style.display = 'none';
-          }
-        });
-      });
-    }, 1000); // Check every second
-  </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@argonjs/argon"></script>
+    <script src="main.js"></script>
 </body>
 </html>
