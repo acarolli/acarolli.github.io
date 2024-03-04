@@ -17,6 +17,8 @@
 
 <body style='margin: 0; overflow: hidden;'>
     <div class="top-text">Text on Top</div>
+    <div class="space-text"></div>
+    <div class="bottom-text">Text on Bottom</div>
     <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
@@ -37,7 +39,7 @@
     <!-- Button -->
 	<a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>
 	
-    <div class="bottom-text">Text on Bottom</div>
+    
 	</a-scene>
 	
 <script>
