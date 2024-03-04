@@ -61,16 +61,27 @@
 
         // Function to update proximity text and distance
         function updateProximity(distance) {
+            const proximityText = document.getElementById('proximityText');
+            const distanceText = document.getElementById('distanceText');
+
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
+
             if (distance <= 200) {
             	topdiv.textContent = ('Dica Próxima!');
             	bottomdiv.textContent = ('Distancia: '+ distance.toFixed(2) + ' meters');
+
+                proximityText.setAttribute('text', 'value', 'You are close to a tip');
+                distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
                 topdiv.textContent = ('');
             	bottomdiv.textContent = ('');
+            	
+                proximityText.setAttribute('text', 'value', '');
+                distanceText.setAttribute('text', 'value', '');
             }
         }
+
 
         // Function to open website
         function openWebsite() {
