@@ -16,8 +16,8 @@
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-    <div class="top-text">Text on Top</div>
-    <div class="bottom-text">Text on Bottom</div>
+    <div class="top-text" id="topdiv">Text on Top</div>
+    <div class="bottom-text" id="bottomdiv">Text on Bottom</div>
     <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
@@ -61,14 +61,14 @@
 
         // Function to update proximity text and distance
         function updateProximity(distance) {
-            const proximityText = document.getElementById('proximityText');
-            const distanceText = document.getElementById('distanceText');
+            const topdiv = document.getElementById('topdiv');
+            const bottomdiv = document.getElementById('bottomdiv');
             if (distance <= 200) {
-                proximityText.setAttribute('text', 'value', 'You are close to a tip');
-                distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
+            	topdiv.textContent = ('Dica Próxima!');
+            	bottomdiv.textContent = ('Distancia: '+ distance.toFixed(2) + ' meters');
             } else {
-                proximityText.setAttribute('text', 'value', '');
-                distanceText.setAttribute('text', 'value', '');
+                topdiv.textContent = ('');
+            	bottomdiv.textContent = ('');
             }
         }
 
@@ -86,6 +86,9 @@
             // Coordinates for each object
             const objectCoordinates = [
                 { latitude: -19.987079, longitude: -43.963870 },
+                { latitude: -19.986079; longitude: -43.962870 },
+                { latitude: -19.985079; longitude: -43.961870 },
+                { latitude: -19.984079; longitude: -43.960870 },
                 // Add coordinates for all 25 objects
             ];
 
