@@ -27,8 +27,8 @@
     <!-- Localizações -->
 
     <a-entity id="object01" gltf-model="./assets/articuno/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2"></a-entity>
-	<a-entity material='color: yellow' geometry='primitive: box' gps-entity-place="latitude: -19.986079; longitude: -43.962870" scale="10 10 10" visible="false"></a-entity>
-	<a-entity material='color: blue' geometry='primitive: box' gps-entity-place="latitude: -19.985079; longitude: -43.961870" scale="10 10 10" visible="false"></a-entity>
+	<a-entity material='color: yellow' geometry='primitive: box' gps-entity-place="latitude: -19.986079; longitude: -43.962870" scale="1 1 1" visible="false"></a-entity>
+	<a-entity material='color: blue' geometry='primitive: box' gps-entity-place="latitude: -19.985079; longitude: -43.961870" scale="5 5 5" visible="false"></a-entity>
 	<a-entity material='color: green' geometry='primitive: box' gps-entity-place="latitude: -19.984079; longitude: -43.960870" scale="10 10 10" visible="false"></a-entity>
 
 	<!-- Texts -->
@@ -64,8 +64,8 @@
             const proximityText = document.getElementById('proximityText');
             const distanceText = document.getElementById('distanceText');
 
-            const topdiv = document.getElementById('topdiv');
-            const bottomdiv = document.getElementById('bottomdiv');
+            //const topdiv = document.getElementById('topdiv');
+            //const bottomdiv = document.getElementById('bottomdiv');
 
             if (distance <= 200) {
             	topdiv.innerHTML = 'Dica Próxima!';
@@ -74,8 +74,8 @@
                 proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
-                topdiv.textContent = ('');
-            	bottomdiv.textContent = ('');
+                //topdiv.innerHTML = ('');
+            	//bottomdiv.innerHTML = ('');
             	
                 proximityText.setAttribute('text', 'value', '');
                 distanceText.setAttribute('text', 'value', '');
@@ -97,9 +97,9 @@
             // Coordinates for each object
             const objectCoordinates = [
                 { latitude: -19.987079, longitude: -43.963870 },
-                { latitude: -19.986079; longitude: -43.962870 },
-                { latitude: -19.985079; longitude: -43.961870 },
-                { latitude: -19.984079; longitude: -43.960870 },
+                //{ latitude: -19.986079; longitude: -43.962870 },
+                //{ latitude: -19.985079; longitude: -43.961870 },
+                //{ latitude: -19.984079; longitude: -43.960870 },
                 // Add coordinates for all 25 objects
             ];
 
