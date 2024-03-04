@@ -40,7 +40,7 @@
 	
     
 	</a-scene>
-	<div id="button" class="centered" style.visibility = "hidden">
+	<div id="button" class="centered" style.display = "none">
     <button onclick="openWebsite()"></button>
 </div>
 <script>
@@ -116,10 +116,10 @@
                     const button = document.getElementById('button');
                     if (distance <= 10) {
                         button.setAttribute('visible', 'true');
-                        document.getElementById("button").style.visibility = "visible";
+                        document.getElementById("button").style.display = "block";
                     } else {
                         button.setAttribute('visible', 'false');
-                        document.getElementById("button").style.visibility = "hidden";
+                        document.getElementById("button").style.display = "none";
                     }
 
                     // Show proximity and distance text
