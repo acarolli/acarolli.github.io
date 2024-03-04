@@ -16,7 +16,7 @@
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-    <div class="top-div" id="divtop"></div>
+    <div class="top-div" id="divtop">Texto de Cima</div>
     <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
@@ -30,13 +30,13 @@
 	<a-entity material='color: blue' geometry='primitive: box' gps-entity-place="latitude: -19.985079; longitude: -43.961870" scale="10 10 10" visible="false"></a-entity>
 	<a-entity material='color: green' geometry='primitive: box' gps-entity-place="latitude: -19.984079; longitude: -43.960870" scale="10 10 10" visible="false"></a-entity>
 
-	<!-- Texts 
+	<!-- Texts -->
     <a-entity id="proximityText" look-at="[gps-camera]" position="0 0 -2" text="value: ; color: black; align: center; width: 6;"></a-entity>
-    <a-entity id="distanceText" look-at="[gps-camera]" position="0 0 -1" text="value: ; color: black; align: center; width: 6;"></a-entity>-->
+    <a-entity id="distanceText" look-at="[gps-camera]" position="0 0 -1" text="value: ; color: black; align: center; width: 6;"></a-entity>
 
     <!-- Button -->
 	<a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>
-	<div class="bottom-div" id="divbottom"></div>
+	<div class="bottom-div" id="divbottom">Texto de Baixo</div>
 </a-scene>
 <script>
         // Function to calculate distance between two coordinates
@@ -58,14 +58,14 @@
 
         // Function to update proximity text and distance
         function updateProximity(distance) {
-            const divtop = document.getElementById('divtop');
-            const divbottom = document.getElementById('divbottom');
+            const proximityText = document.getElementById('proximityText');
+            const distanceText = document.getElementById('distanceText');
             if (distance <= 200) {
-            	document.getElementById("divtop").innerHTML = ("Uma dica está próximo de você!");
-            	document.getElementById("divtop").innerHTML = ("Distância: " + distance.toFixed(2) + ' meters');
+                proximityText.setAttribute('text', 'value', 'You are close to a tip');
+                distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
-                document.getElementById("divtop").innerHTML = "";
-            	document.getElementById("divtop").innerHTML = "";
+                proximityText.setAttribute('text', 'value', '');
+                distanceText.setAttribute('text', 'value', '');
             }
         }
 
