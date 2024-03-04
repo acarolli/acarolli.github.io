@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 <head>
     <meta charset='utf-8'>
@@ -19,4 +19,31 @@
         <a-entity gps-entity-place="latitude: -19.973222; longitude: -43.969979;" gltf-model="./assets/magnemite/scene.gltf" rotation="0 180 0" animation-mixer scale="0.15 0.15 0.15"/>
         <a-camera gps-camera rotation-reader></a-camera>
     </a-scene>
+</body>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>AR.js A-Frame</title>
+<script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+<!-- Assumes AR.js build is in the 'AR.js' directory -->
+<script type='text/javascript' src='../../../../three.js/build/ar-threex-location-only.js'></script>
+<script type='text/javascript' src='../../../build/aframe-ar.js'></script>
+</head>
+<body>
+<!-- 
+This is using a simulated location. If testing on a mobile device, remove the 
+'simulateLatitude' and 'simulateLongitude' properties from 'gps-new-camera' and
+change the 'latitude' and 'longitude' properties to a location around 0.001 
+degrees from your real location.
+-->
+<a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
+    <a-camera gps-new-camera ></a-camera>
+    <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: -19.986080; longitude: -43.962870;" scale="10 10 10"></a-entity>
+    <a-entity material='color: yellow' geometry='primitive: box' gps-new-entity-place="latitude: -19.985080; longitude: -43.961870;" scale="10 10 10"></a-entity>
+    <a-entity material='color: blue' geometry='primitive: box' gps-new-entity-place="latitude: -19.984080; longitude: -43.960870;" scale="10 10 10"></a-entity>
+    <a-entity material='color: green' geometry='primitive: box' gps-new-entity-place="latitude: -19.987080; longitude: -43.963870;" scale="10 10 10"></a-entity>
+</a-scene>
+    
 </body>
+</html>
