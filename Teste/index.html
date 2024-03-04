@@ -16,8 +16,8 @@
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-    <div class="top-text" id="topdiv">Text on Top</div>
-    <div class="bottom-text" id="bottomdiv">Text on Bottom</div>
+    <div class="top-text" id="topdiv">.</div>
+    <div class="bottom-text" id="bottomdiv">.</div>
     <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
@@ -26,7 +26,7 @@
 
     <!-- Localizações -->
 
-    <a-entity id="object01" gltf-model="./assets/articuno/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2"></a-entity>
+    <a-entity id="object01" gltf-model="./assets/articuno/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
 	<a-entity material='color: yellow' geometry='primitive: box' gps-entity-place="latitude: -19.986079; longitude: -43.962870" scale="1 1 1" visible="false"></a-entity>
 	<a-entity material='color: blue' geometry='primitive: box' gps-entity-place="latitude: -19.985079; longitude: -43.961870" scale="5 5 5" visible="false"></a-entity>
 	<a-entity material='color: green' geometry='primitive: box' gps-entity-place="latitude: -19.984079; longitude: -43.960870" scale="10 10 10" visible="false"></a-entity>
@@ -35,12 +35,14 @@
     <a-entity id="proximityText" look-at="[gps-camera]" position="0 0 -2" text="value: ; color: black; align: center; width: 6;"></a-entity>
     <a-entity id="distanceText" look-at="[gps-camera]" position="0 0 -1" text="value: ; color: black; align: center; width: 6;"></a-entity>-->
 
-    <!-- Button -->
-	<a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>
+    <!-- Button 
+	<a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>-->
 	
     
 	</a-scene>
-	
+	<div id="button" class="centered">
+    <button onclick="openWebsite()"></button>
+</div>
 <script>
         // Function to calculate distance between two coordinates
         function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -71,14 +73,14 @@
             	topdiv.innerHTML = 'Dica Próxima!';
             	bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
 
-                proximityText.setAttribute('text', 'value', 'You are close to a tip');
-                distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
+                //proximityText.setAttribute('text', 'value', 'You are close to a tip');
+                //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
                 topdiv.innerHTML = ('');
             	bottomdiv.innerHTML = ('');
             	
-                proximityText.setAttribute('text', 'value', '');
-                distanceText.setAttribute('text', 'value', '');
+                //proximityText.setAttribute('text', 'value', '');
+                //distanceText.setAttribute('text', 'value', '');
             }
         }
 
@@ -86,7 +88,8 @@
         // Function to open website
         function openWebsite() {
             // Implement your logic to open a different website for each object
-            alert('Opening website...');
+            window.open("https://www.invisio360.com", "_blank");
+            //alert('Opening website...');
         }
 
         // Event listener for location update
