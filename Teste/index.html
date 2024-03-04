@@ -17,7 +17,7 @@
 
 <body style='margin: 0; overflow: hidden;'>
     <div class="top-text" id="topdiv">.</div>
-    <div class="bottom-text" id="bottomdiv">.</div>
+    <div class="bottom-text" id="bottomdiv" style.bottom = "100px">.</div>
     <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
@@ -40,8 +40,8 @@
 	
     
 	</a-scene>
-	<div id="button" class="centered" style.display = "none">
-    <button onclick="openWebsite()"></button>
+	<div id="button" class="centered" >
+    <button style.display = "none" onclick="openWebsite()"></button>
 </div>
 <script>
         // Function to calculate distance between two coordinates
