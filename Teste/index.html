@@ -40,8 +40,8 @@
 	
     
 	</a-scene>
-	<div id="button" class="centered" >
-    <button style.display = "none" onclick="openWebsite()"></button>
+	<div  class="centered" >
+    <button id="button" type="button" hidden onclick="openWebsite()"></button>
 </div>
 <script>
         // Function to calculate distance between two coordinates
@@ -113,15 +113,15 @@
 
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
-                    const button = document.getElementById('button');
+                    let element = document.getElementById("button")
+                    let hidden = element.getAttribute("hidden");
                     if (distance <= 10) {
-                        button.setAttribute('visible', 'true');
-                        document.getElementById("button").style.display = "block";
+                    if (hidden) {
+                        element.removeAttribute("hidden")
                     } else {
-                        button.setAttribute('visible', 'false');
-                        document.getElementById("button").style.display = "none";
+                        element.setAttribute("hidden", "hidden");
                     }
-
+                    }
                     // Show proximity and distance text
                     updateProximity(distance);
                 }
