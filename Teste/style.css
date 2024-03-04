@@ -11,14 +11,13 @@
     right: 0;
 }
 
-.space-text {
+html, body {
     margin: 0;
     padding: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-     height:80%;
 }
 
 button {
