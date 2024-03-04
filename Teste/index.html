@@ -40,7 +40,7 @@
 	
     
 	</a-scene>
-	<div id="button" class="centered" >
+	<div id="button" class="centered" style.visibility = "hidden">
     <button onclick="openWebsite()"></button>
 </div>
 <script>
@@ -109,17 +109,17 @@
             // Check distance for each object
             objectCoordinates.forEach(function(coord) {
                 const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
-                const button = document.querySelector('button');
+                
 
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
                     const button = document.getElementById('button');
                     if (distance <= 10) {
                         button.setAttribute('visible', 'true');
-                        button.style.visibility = 'visible';
+                        document.getElementById("button").style.visibility = "visible";
                     } else {
                         button.setAttribute('visible', 'false');
-                        button.style.visibility = 'hidden';
+                        document.getElementById("button").style.visibility = "hidden";
                     }
 
                     // Show proximity and distance text
