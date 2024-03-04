@@ -68,8 +68,8 @@
             const bottomdiv = document.getElementById('bottomdiv');
 
             if (distance <= 200) {
-            	topdiv.textContent = ('Dica Próxima!');
-            	bottomdiv.textContent = ('Distancia: '+ distance.toFixed(2) + ' meters');
+            	topdiv.innerHTML = 'Dica Próxima!';
+            	bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
 
                 proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
