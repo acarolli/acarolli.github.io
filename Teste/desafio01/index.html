@@ -41,7 +41,7 @@
 	<div  class="centered" >
     <button id="button" type="button" hidden="hidden" onclick="openWebsite()"></button>
 </div>
-<script>
+    <script>
         // Function to calculate distance between two coordinates
         function calculateDistance(lat1, lon1, lat2, lon2) {
             const R = 6371e3; // Radius of the earth in meters
@@ -61,33 +61,31 @@
 
         // Function to update proximity text and distance
         function updateProximity(distance) {
-            //const proximityText = document.getElementById('proximityText');
-            //const distanceText = document.getElementById('distanceText');
+            const proximityText = document.getElementById('proximityText');
+            const distanceText = document.getElementById('distanceText');
 
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
-
             if (distance <= 200) {
-            	topdiv.innerHTML = 'Dica Próxima!';
-            	bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
+                topdiv.innerHTML = 'Dica Próxima!';
+                bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
 
-                //proximityText.setAttribute('text', 'value', 'You are close to a tip');
-                //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
+                proximityText.setAttribute('text', 'value', 'You are close to a tip');
+                distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
                 topdiv.innerHTML = ('');
-            	bottomdiv.innerHTML = ('');
-            	
-                //proximityText.setAttribute('text', 'value', '');
-                //distanceText.setAttribute('text', 'value', '');
+                bottomdiv.innerHTML = ('');
+
+
+                proximityText.setAttribute('text', 'value', '');
+                distanceText.setAttribute('text', 'value', '');
             }
         }
-
 
         // Function to open website
         function openWebsite() {
             // Implement your logic to open a different website for each object
-            window.open("https://www.invisio360.com", "_blank");
-            //alert('Opening website...');
+            alert('Opening website...');
         }
 
         // Event listener for location update
@@ -97,32 +95,27 @@
 
             // Coordinates for each object
             const objectCoordinates = [
-                { latitude: -19.987079; longitude: -43.963870 },
+                { latitude: OBJECT1_LATITUDE, longitude: OBJECT1_LONGITUDE },
                 // Add coordinates for all 25 objects
             ];
 
             // Check distance for each object
             objectCoordinates.forEach(function(coord) {
                 const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
-                
-
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
-                    let element = document.getElementById("button")
-                    let hidden = element.getAttribute("hidden");
+                    const button = document.getElementById('button');
                     if (distance <= 10) {
-                    if (hidden) {
-                        element.removeAttribute("hidden")
+                        button.setAttribute('visible', 'true');
                     } else {
-                        element.setAttribute("hidden", "hidden");
+                        button.setAttribute('visible', 'false');
                     }
-                    }
+
                     // Show proximity and distance text
                     updateProximity(distance);
                 }
             });
         });
     </script>
-</div>
 </body>
 </html>
