@@ -22,23 +22,25 @@
         vr-mode-ui='enabled: false' 
         embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
-    <a-camera gps-camera="minDistance: 0; maxDistance: 200;" rotation-reader></a-camera>
+    <a-camera gps-camera="minDistance: 0; maxDistance: 300;" rotation-reader></a-camera>
 
     <!-- Localizações -->
 
-    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.9870790; longitude: -43.9638700" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.9870790; longitude: -43.9638700" scale="0.2 0.2 0.2"></a-entity>
 	
 
-	<!-- Texts -->
+	<!-- Texts 
     <a-entity id="proximityText" look-at="[gps-camera]" position="0 0 -2" text="value: ; color: black; align: center; width: 6;"></a-entity>
-    <a-entity id="distanceText" look-at="[gps-camera]" position="0 0 -1" text="value: ; color: black; align: center; width: 6;"></a-entity>
+    <a-entity id="distanceText" look-at="[gps-camera]" position="0 0 -1" text="value: ; color: black; align: center; width: 6;"></a-entity>-->
 
-    <!-- Button -->
-	<a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>
+    <!-- Button 
+	<a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>-->
 	
     
 	</a-scene>
-
+    <div  class="centered" >
+    <button id="button" type="button" hidden="hidden" onclick="openWebsite()"></button>
+</div>
     <script>
         // Function to calculate distance between two coordinates
         function calculateDistance(lat1, lon1, lat2, lon2) {
