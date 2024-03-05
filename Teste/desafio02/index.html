@@ -26,19 +26,21 @@
 
     <!-- Localizações -->
 
-    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
-    
+    <a-entity id="object01" gltf-model="./assets/articuno/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
+	<a-entity material='color: yellow' geometry='primitive: box' gps-entity-place="latitude: -19.973211; longitude: -43.969754" scale="5 5 5" visible="false"></a-entity>
+	<a-entity material='color: blue' geometry='primitive: box' gps-entity-place="latitude: -19.985079; longitude: -43.961870" scale="5 5 5" visible="false"></a-entity>
+	<a-entity material='color: green' geometry='primitive: box' gps-entity-place="latitude: -19.984079; longitude: -43.960870" scale="10 10 10" visible="false"></a-entity>
 
-    <!-- Texts 
+	<!-- Texts 
     <a-entity id="proximityText" look-at="[gps-camera]" position="0 0 -2" text="value: ; color: black; align: center; width: 6;"></a-entity>
     <a-entity id="distanceText" look-at="[gps-camera]" position="0 0 -1" text="value: ; color: black; align: center; width: 6;"></a-entity>-->
 
     <!-- Button 
-    <a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>-->
+	<a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>-->
+	
     
-    
-    </a-scene>
-    <div  class="centered" >
+	</a-scene>
+	<div  class="centered" >
     <button id="button" type="button" hidden="hidden" onclick="openWebsite()"></button>
 </div>
 <script>
@@ -68,15 +70,15 @@
             const bottomdiv = document.getElementById('bottomdiv');
 
             if (distance <= 200) {
-                topdiv.innerHTML = 'Dica Próxima!';
-                bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
+            	topdiv.innerHTML = 'Dica Próxima!';
+            	bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
 
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
                 topdiv.innerHTML = ('');
-                bottomdiv.innerHTML = ('');
-                
+            	bottomdiv.innerHTML = ('');
+            	
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
             }
@@ -97,7 +99,10 @@
 
             // Coordinates for each object
             const objectCoordinates = [
-                { latitude: -19.987079; longitude: -43.963870 },
+                { latitude: -19.987079, longitude: -43.963870 },
+                { latitude: -19.973211; longitude: -43.969754 },
+                //{ latitude: -19.985079; longitude: -43.961870 },
+                //{ latitude: -19.984079; longitude: -43.960870 },
                 // Add coordinates for all 25 objects
             ];
 
@@ -123,6 +128,5 @@
             });
         });
     </script>
-</div>
 </body>
 </html>
