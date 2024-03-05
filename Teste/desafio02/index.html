@@ -114,13 +114,10 @@
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
                     let element = document.getElementById("button");
-                    let hidden = element.getAttribute("hidden");
                     if (distance <= 10) {
-                    if (hidden) {
                         element.removeAttribute("hidden")
                     } else {
                         element.setAttribute("hidden", "hidden");
-                    }
                     }
                     // Show proximity and distance text
                     updateProximity(distance);
