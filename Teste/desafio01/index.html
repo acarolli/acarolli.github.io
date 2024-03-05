@@ -26,21 +26,19 @@
 
     <!-- Localizações -->
 
-    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.9870790; longitude: -43.9638700" scale="0.2 0.2 0.2" visible="false"></a-entity>
 	
 
-	<!-- Texts 
+	<!-- Texts -->
     <a-entity id="proximityText" look-at="[gps-camera]" position="0 0 -2" text="value: ; color: black; align: center; width: 6;"></a-entity>
-    <a-entity id="distanceText" look-at="[gps-camera]" position="0 0 -1" text="value: ; color: black; align: center; width: 6;"></a-entity>-->
+    <a-entity id="distanceText" look-at="[gps-camera]" position="0 0 -1" text="value: ; color: black; align: center; width: 6;"></a-entity>
 
-    <!-- Button 
-	<a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>-->
+    <!-- Button -->
+	<a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>
 	
     
 	</a-scene>
-	<div  class="centered" >
-    <button id="button" type="button" hidden="hidden" onclick="openWebsite()"></button>
-</div>
+
     <script>
         // Function to calculate distance between two coordinates
         function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -95,7 +93,7 @@
 
             // Coordinates for each object
             const objectCoordinates = [
-                { latitude: OBJECT1_LATITUDE, longitude: OBJECT1_LONGITUDE },
+                { latitude: -19.9870790; longitude: -43.9638700 },
                 // Add coordinates for all 25 objects
             ];
 
