@@ -65,20 +65,20 @@ function renderPlaces(places) {
             if (distance <= 200) {
                 topdiv.innerHTML = 'Dica Próxima!';
                 bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-                var x = document.getElementById("button");
+var x = document.getElementById("button");
                     if (distance <= 10) {
                         x.style.display = "block";
-                    } else {
+                      } else {
                         x.style.display = "none";
-                    }
+                      }
+                    // Show proximity and distance text
                     updateProximity(distance);
-
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
-            } else if (distance > 200) {
+            } else {
                 topdiv.innerHTML = ('');
                 bottomdiv.innerHTML = ('');
-             updateProximity(distance);   
+                
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
             }
@@ -92,7 +92,7 @@ function renderPlaces(places) {
             //alert('Opening website...');
         }
 
-        /*/ Event listener for location update
+        // Event listener for location update
         window.addEventListener('gps-camera-update-position', function(e) {
             const userLatitude = e.detail.position.latitude;
             const userLongitude = e.detail.position.longitude;
@@ -113,14 +113,7 @@ function renderPlaces(places) {
 
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
-                    let element = document.getElementById("button");
-                    if (distance <= 10) {
-                        element.removeAttribute("hidden")
-                    } else {
-                        element.setAttribute("hidden", "hidden");
-                    }
-                    // Show proximity and distance text
-                    updateProximity(distance);
+                    
                 }
             });
-        });*/
+        });
