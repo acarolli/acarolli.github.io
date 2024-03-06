@@ -1,97 +1,20 @@
+window.onload = () => {
+     let places = staticLoadPlaces();
+     renderPlaces(places);
+     calculateDistance();
+};
 
 function staticLoadPlaces() {
     return [
         {
-            name: '01',
+            name: 'Treasure',
             location: {
-                lat: -19.973222,
-                lng: -43.969979,
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '02',
-            location: {
-                lat: -22.419336,
-                lng: -45.469415,
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '03',
-            location: {
-                lat: -19.98770155010817,
-                lng: -43.964001435893145,
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '04',
-            location: {
-                lat: -20.07188369083826, 
-                lng: -43.41430990192027,
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '05',
-            location: {
-                lat: -20.07170376925541, 
-                lng: -43.41438285759934, 
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '06',
-            location: {
-                lat: -20.07158544343602,  
-                lng: -43.413926820386145,
-                //elev: 715.4,
-            },
+                lat: -19.987079,
+                lng: -43.963870,
+            }
         },
     ];
 }
-
-var models = [
-    {
-        url: './assets/treasure/scene.gltf',
-        scale: '0.5 0.5 0.5',
-        info: 'Você encontrou uma pista!',
-        rotation: '0 180 0',
-    },
-    {
-        url: './assets/articuno/scene.gltf',
-        scale: '0.2 0.2 0.2',
-        rotation: '0 180 0',
-        info: 'Articuno, Lv. 80, HP 100/100',
-    },
-    {
-        url: './assets/dragonite/scene.gltf',
-        scale: '0.08 0.08 0.08',
-        rotation: '0 180 0',
-        info: 'Dragonite, Lv. 99, HP 150/150',
-    },
-];
-
-var modelIndex = 0;
-var setModel = function (model, entity) {
-    if (model.scale) {
-        entity.setAttribute('scale', model.scale);
-    }
-
-    if (model.rotation) {
-        entity.setAttribute('rotation', model.rotation);
-    }
-
-    if (model.position) {
-        entity.setAttribute('position', model.position);
-    }
-
-    entity.setAttribute('gltf-model', model.url);
-
-    const div = document.querySelector('.instructions');
-    div.innerText = model.info;
-};
 
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
@@ -102,18 +25,95 @@ function renderPlaces(places) {
 
         let model = document.createElement('a-entity');
         model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-
-        setModel(models[modelIndex], model);
-
+        model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
+        model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
+        model.setAttribute('scale', '0.05 0.05 0.05');
 
-        document.querySelector('button[data-action="change"]').addEventListener('click', function () {
-            var entity = document.querySelector('[gps-entity-place]');
-            modelIndex++;
-            var newIndex = modelIndex % models.length;
-            setModel(models[newIndex], entity);
+        model.addEventListener('loaded', () => {
+            window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
         });
 
         scene.appendChild(model);
     });
 }
+
+ function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Radius of the earth in meters
+            const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+            const φ2 = lat2 * Math.PI/180;
+            const Δφ = (lat2-lat1) * Math.PI/180;
+            const Δλ = (lon2-lon1) * Math.PI/180;
+
+            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            const d = R * c; // Distance in meters
+            return d;
+        }
+
+        // Function to update proximity text and distance
+        function updateProximity(distance) {
+            const proximityText = document.getElementById('proximityText');
+            const distanceText = document.getElementById('distanceText');
+
+            const topdiv = document.getElementById('topdiv');
+            const bottomdiv = document.getElementById('bottomdiv');
+
+            if (distance <= 200) {
+                topdiv.innerHTML = 'Dica Próxima!';
+                bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
+
+                //proximityText.setAttribute('text', 'value', 'You are close to a tip');
+                //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
+            } else {
+                topdiv.innerHTML = ('');
+                bottomdiv.innerHTML = ('');
+                
+                //proximityText.setAttribute('text', 'value', '');
+                //distanceText.setAttribute('text', 'value', '');
+            }
+        }
+
+
+        // Function to open website
+        function openWebsite() {
+            // Implement your logic to open a different website for each object
+            window.open("https://www.invisio360.com", "_blank");
+            //alert('Opening website...');
+        }
+
+        // Event listener for location update
+        window.addEventListener('gps-camera-update-position', function(e) {
+            const userLatitude = e.detail.position.latitude;
+            const userLongitude = e.detail.position.longitude;
+
+            // Coordinates for each object
+            const objectCoordinates = [
+                { latitude: -19.987079, longitude: -43.963870 },
+                //{ latitude: -19.973211; longitude: -43.969754 },
+                //{ latitude: -19.985079; longitude: -43.961870 },
+                //{ latitude: -19.984079; longitude: -43.960870 },
+                // Add coordinates for all 25 objects
+            ];
+
+            // Check distance for each object
+            objectCoordinates.forEach(function(coord) {
+                const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
+                
+
+                if (distance <= 200) {
+                    // Show button if user is 10 meters away
+                    let element = document.getElementById("button");
+                    if (distance <= 10) {
+                        element.removeAttribute("hidden")
+                    } else {
+                        element.setAttribute("hidden", "hidden");
+                    }
+                    // Show proximity and distance text
+                    updateProximity(distance);
+                }
+            });
+        });
