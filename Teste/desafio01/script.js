@@ -1,6 +1,7 @@
 window.onload = () => {
      let places = staticLoadPlaces();
      renderPlaces(places);
+     calculateDistance();
 };
 
 function staticLoadPlaces() {
