@@ -75,6 +75,7 @@ function renderPlaces(places) {
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
             }
+         updateProximity(distance);
         }
 
 
