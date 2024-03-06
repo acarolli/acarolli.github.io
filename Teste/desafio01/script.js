@@ -65,20 +65,23 @@ function renderPlaces(places) {
             if (distance <= 200) {
                 topdiv.innerHTML = 'Dica Próxima!';
                 bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-var x = document.getElementById("button");
+                    var x = document.getElementById("button");
                     if (distance <= 10) {
                         x.style.display = "block";
+                        updateProximity(distance);
                       } else {
                         x.style.display = "none";
+                        updateProximity(distance);
                       }
+                      updateProximity(distance);
                     // Show proximity and distance text
-                    updateProximity(distance);
+                    
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
                 topdiv.innerHTML = ('');
                 bottomdiv.innerHTML = ('');
-                
+                updateProximity(distance);
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
             }
@@ -113,7 +116,7 @@ var x = document.getElementById("button");
 
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
-                    
+
                 }
             });
         });
