@@ -16,34 +16,19 @@
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-    <div class="top-text" id="topdiv">.</div>
-    <div class="bottom-text" id="bottomdiv" style.bottom = "100px">.</div>
+    <div class="top-text" id="topdiv"> </div>
+    <div class="bottom-text" id="bottomdiv" style.bottom = "100px"> </div>
     <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
     <a-camera gps-camera="minDistance: 0; maxDistance: 200;" rotation-reader></a-camera>
-
-    <!-- Localizações -->
-
-    <!--<a-entity id="object01" animation-mixer gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.02 0.02 0.02" visible="false"></a-entity>
-    <a-entity material='color: yellow' geometry='primitive: box' gps-entity-place="latitude: -19.973211; longitude: -43.969754" scale="5 5 5" visible="false"></a-entity>
-    <a-entity material='color: blue' geometry='primitive: box' gps-entity-place="latitude: -19.985079; longitude: -43.961870" scale="5 5 5" visible="false"></a-entity>
-    <a-entity material='color: green' geometry='primitive: box' gps-entity-place="latitude: -19.984079; longitude: -43.960870" scale="10 10 10" visible="false"></a-entity>-->
-
-    <!-- Texts 
-    <a-entity id="proximityText" look-at="[gps-camera]" position="0 0 -2" text="value: ; color: black; align: center; width: 6;"></a-entity>
-    <a-entity id="distanceText" look-at="[gps-camera]" position="0 0 -1" text="value: ; color: black; align: center; width: 6;"></a-entity>-->
-
-    <!-- Button 
-    <a-entity id="button" look-at="[gps-camera]" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" position="0 0 -3" visible="false" onclick="openWebsite()"></a-entity>-->
-    
     
     </a-scene>
     <div  class="centered" >
-    <button id="button" type="button" hidden="hidden" onclick="openWebsite()"></button>
-</div>
-<script>
+        <button id="button" type="button" hidden="hidden" onclick="openWebsite()"></button>
+    </div>
+    <script>
         // Function to calculate distance between two coordinates
        calculateDistance();
     </script>
