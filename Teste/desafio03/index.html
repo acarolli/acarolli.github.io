@@ -29,7 +29,7 @@
 
   <script>
     // Data e hora alvo para o contador regressivo (ano, mês (0-11), dia, hora, minuto, segundo)
-    var targetDate = new Date("2024-12-31T23:59:59");
+    var targetDate = new Date("2024-04-28T23:59:59");
 
     // Função para atualizar o contador regressivo
     function updateCountdown() {
@@ -42,7 +42,7 @@
         var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        document.getElementById("countdown").innerHTML = "Faltam " + days + " dias, " + hours + ":" + minutes + ":" + seconds + ".";
+        document.getElementById("countdown").innerHTML = "Faltam " + days + " dias, " + hours + <p>":" + minutes + ":" + seconds + ".";
       } else {
         document.getElementById("countdown").innerHTML = "O contador regressivo terminou!";
       }
