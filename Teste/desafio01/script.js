@@ -24,13 +24,13 @@ function renderPlaces(places) {
         let longitude = place.location.lng;
 
         let model = document.createElement('a-entity');
-        
+        model.setAttribute('id', 'model');
         model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
         model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
-        model.setAttribute('scale', '0.05 0.05 0.05');
-        model.setAttribute("visible",false);
+        model.setAttribute('scale', '0.01 0.01 0.01');
+        model.setAttribute('visible', false);
 
         model.addEventListener('loaded', () => {
             window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
@@ -60,20 +60,20 @@ function renderPlaces(places) {
         function updateProximity(distance) {
             const proximityText = document.getElementById('proximityText');
             const distanceText = document.getElementById('distanceText');
-const treasure = document.getElementById('treasure')
+            const model = document.getElementById('model');
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
 
             if (distance <= 200) {
                 topdiv.innerHTML = 'Dica Próxima!';
                 bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-treasure.setAttribute('visible',true);
+                model.setAttribute('visible',true);
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
                 topdiv.innerHTML = ('');
                 bottomdiv.innerHTML = ('');
-                treasure.setAttribute('visible',false);
+                model.setAttribute('visible',false);
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
             }
