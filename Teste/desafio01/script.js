@@ -30,7 +30,7 @@ function renderPlaces(places) {
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
         model.setAttribute('scale', '0.5 0.5 0.5');
-        model.setAttribute('visible', 'false');
+        //model.setAttribute('visible', 'false');
 
         model.addEventListener('loaded', () => {
             window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
@@ -110,8 +110,8 @@ function renderPlaces(places) {
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
-                    var y = document.getElementById("scenear");
-                    y.style.display = "block";
+                    
+                    
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
@@ -119,8 +119,6 @@ function renderPlaces(places) {
                       } 
                     // Show proximity and distance text
                     updateProximity(distance);
-                } else {
-x.style.display = "none";
-}
+                } 
             });
         });
