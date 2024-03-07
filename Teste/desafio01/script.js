@@ -60,20 +60,20 @@ function renderPlaces(places) {
         function updateProximity(distance) {
             const proximityText = document.getElementById('proximityText');
             const distanceText = document.getElementById('distanceText');
-            const x = document.querySelector('treasure');
+            //const x = document.querySelector('treasure');
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
 
             if (distance <= 200) {
                 topdiv.innerHTML = 'Dica Próxima!';
                 bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-                x.setAttribute('visible','false');
+               // x.setAttribute('visible','false');
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else if (distance > 200) {
                 topdiv.innerHTML = ('Nenhum dica por perto!');
                 bottomdiv.innerHTML = ('Desvende a charada.');
-                x.setAttribute('visible','true');
+               // x.setAttribute('visible','true');
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
             }
@@ -110,13 +110,18 @@ function renderPlaces(places) {
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
+                    var y = document.getElementById("scene");
+                    y.style.display = "block";
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
                         x.style.display = "none";
-                      }
+                      } 
                     // Show proximity and distance text
                     updateProximity(distance);
-                }
+                } else {
+
+y.style.display = "none";
+}
             });
         });
