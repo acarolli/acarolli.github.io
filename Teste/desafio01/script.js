@@ -60,20 +60,20 @@ function renderPlaces(places) {
         function updateProximity(distance) {
             const proximityText = document.getElementById('proximityText');
             const distanceText = document.getElementById('distanceText');
-            const model = document.getElementById('model');
+            //const model = document.getElementById('model');
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
 
             if (distance <= 200) {
                 topdiv.innerHTML = 'Dica Próxima!';
                 bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-                model.setAttribute('visible',true);
+                //model.setAttribute('visible',true);
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
                 topdiv.innerHTML = ('');
                 bottomdiv.innerHTML = ('');
-                model.setAttribute('visible',false);
+                //model.setAttribute('visible',false);
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
             }
