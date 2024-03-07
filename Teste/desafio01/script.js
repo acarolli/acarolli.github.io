@@ -29,7 +29,7 @@ function renderPlaces(places) {
         model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
-        model.setAttribute('scale', '0.01 0.01 0.01');
+        model.setAttribute('scale', '0.05 0.05 0.05');
         model.setAttribute('visible', false);
 
         model.addEventListener('loaded', () => {
