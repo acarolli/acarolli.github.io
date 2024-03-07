@@ -70,7 +70,7 @@ function renderPlaces(places) {
                 //model.setAttribute('visible',true);
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
-            } else {
+            } else if (distance > 200) {
                 topdiv.innerHTML = ('Nenhum dica por perto!');
                 bottomdiv.innerHTML = ('Desvende a charada.');
                 //model.setAttribute('visible',false);
