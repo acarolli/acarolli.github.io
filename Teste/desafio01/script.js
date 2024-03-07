@@ -110,7 +110,7 @@ function renderPlaces(places) {
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
-                    var y = document.getElementById("scene");
+                    var y = document.getElementById("scenear");
                     y.style.display = "block";
                     if (distance <= 10) {
                         x.style.display = "block";
@@ -119,6 +119,8 @@ function renderPlaces(places) {
                       } 
                     // Show proximity and distance text
                     updateProximity(distance);
-                }
+                } else {
+x.style.display = "none";
+}
             });
         });
