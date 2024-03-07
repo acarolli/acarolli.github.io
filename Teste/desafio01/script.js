@@ -30,7 +30,7 @@ function renderPlaces(places) {
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
         model.setAttribute('scale', '0.5 0.5 0.5');
-        //model.setAttribute('visible', 'false');
+        
 
         model.addEventListener('loaded', () => {
             window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
@@ -71,8 +71,8 @@ function renderPlaces(places) {
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else if (distance > 200) {
-                topdiv.innerHTML = ('Nenhum dica por perto!');
-                bottomdiv.innerHTML = ('Desvende a charada.');
+                topdiv.innerHTML = ('Nenhuma dica por perto.');
+                bottomdiv.innerHTML = ('Desvende a charada!');
                
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
