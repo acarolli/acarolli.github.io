@@ -119,9 +119,6 @@ function renderPlaces(places) {
                       } 
                     // Show proximity and distance text
                     updateProximity(distance);
-                } else {
-
-y.style.display = "none";
-}
+                }
             });
         });
