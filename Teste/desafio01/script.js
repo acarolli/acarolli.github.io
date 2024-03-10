@@ -30,6 +30,7 @@ function renderPlaces(places) {
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
         model.setAttribute('scale', '0.5 0.5 0.5');
+        model.setAttribute('id', 'object3d');
         
 
         model.addEventListener('loaded', () => {
@@ -110,6 +111,8 @@ function renderPlaces(places) {
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
+                    var object3D = document.getElementById('object3d');
+                    object3D.setAttribute('visible', distance >= 200);
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
