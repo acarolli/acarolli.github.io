@@ -68,15 +68,10 @@ function renderPlaces(places) {
             if (distance <= 200) {
                 topdiv.innerHTML = 'Dica Próxima!';
                 bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-               
-                //proximityText.setAttribute('text', 'value', 'You are close to a tip');
-                //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
                 topdiv.innerHTML = ('Nenhuma dica por perto.');
                 bottomdiv.innerHTML = ('Desvende a charada!');
-               
-                //proximityText.setAttribute('text', 'value', '');
-                //distanceText.setAttribute('text', 'value', '');
+            
             }
          updateProximity(distance);
         }
@@ -108,7 +103,7 @@ function renderPlaces(places) {
                 const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
                 
 
-                if (distance <= 200) {
+                if (distance <= 50) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
                     var object3D = document.getElementById('object3d');
