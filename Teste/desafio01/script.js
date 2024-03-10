@@ -11,7 +11,6 @@ function staticLoadPlaces() {
             location: {
                 lat: -19.987079,
                 lng: -43.963870,
-                gltf: './assets/treasure/scene.gltf'
             }
         },
     ];
@@ -112,9 +111,6 @@ function renderPlaces(places) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
                     
-                    
-                    var object3D = document.getElementById('object3d');
-                    object3D.setAttribute('visible', distance >= 200);
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
