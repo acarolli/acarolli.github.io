@@ -30,7 +30,7 @@ function renderPlaces(places) {
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
         model.setAttribute('scale', '0.5 0.5 0.5');
-        model.setAttribute('visible', 'false');
+        model.setAttribute('visible', false);
         
 
         model.addEventListener('loaded', () => {
@@ -108,9 +108,11 @@ function renderPlaces(places) {
                 const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
                 
 
-                if (distance <= 200) {
+                if (distance <= 50) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
+                    let scene = document.querySelector('a-entity');
+                    setAttribute('visible', true);
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
@@ -118,6 +120,8 @@ function renderPlaces(places) {
                       } 
                     // Show proximity and distance text
                     updateProximity(distance);
-                } 
+                } else {
+                    setAttribute('visible', false);
+                }
             });
         });
