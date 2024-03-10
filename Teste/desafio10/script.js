@@ -24,11 +24,13 @@ function renderPlaces(places) {
         let longitude = place.location.lng;
 
         let model = document.createElement('a-entity');
+        
         model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
         model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
-        model.setAttribute('scale', '0.05 0.05 0.05');
+        model.setAttribute('scale', '0.5 0.5 0.5');
+        
 
         model.addEventListener('loaded', () => {
             window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
@@ -58,23 +60,24 @@ function renderPlaces(places) {
         function updateProximity(distance) {
             const proximityText = document.getElementById('proximityText');
             const distanceText = document.getElementById('distanceText');
-
+            
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
 
             if (distance <= 200) {
                 topdiv.innerHTML = 'Dica Próxima!';
                 bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-
+               
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
-                topdiv.innerHTML = ('');
-                bottomdiv.innerHTML = ('');
-                
+                topdiv.innerHTML = ('Nenhuma dica por perto.');
+                bottomdiv.innerHTML = ('Desvende a charada!');
+               
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
             }
+         updateProximity(distance);
         }
 
 
@@ -106,14 +109,14 @@ function renderPlaces(places) {
 
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
-                    let element = document.getElementById("button");
+                    var x = document.getElementById("button");
                     if (distance <= 10) {
-                        element.removeAttribute("hidden")
-                    } else {
-                        element.setAttribute("hidden", "hidden");
-                    }
+                        x.style.display = "block";
+                      } else {
+                        x.style.display = "none";
+                      } 
                     // Show proximity and distance text
                     updateProximity(distance);
-                }
+                } 
             });
         });

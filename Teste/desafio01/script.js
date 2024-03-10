@@ -56,10 +56,7 @@ function renderPlaces(places) {
         }
 
         // Function to update proximity text and distance
-        function updateProximity(distance) {
-            const proximityText = document.getElementById('proximityText');
-            const distanceText = document.getElementById('distanceText');
-            
+        function updateProximity(distance) {            
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
 
