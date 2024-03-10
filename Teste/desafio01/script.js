@@ -11,7 +11,7 @@ function staticLoadPlaces() {
             location: {
                 lat: -19.987079,
                 lng: -43.963870,
-                gltf: './assets/treasure/scene.gltf'
+                gltf: './assets/treasure/scene.gltf',
             }
         },
         {
@@ -19,7 +19,7 @@ function staticLoadPlaces() {
             location: {
                 lat: -19.987089,
                 lng: -43.963880,
-                gltf: './assets/sign/scene.gltf'
+                gltf: './assets/sign/scene.gltf',
             }
         },
     ];
@@ -35,7 +35,7 @@ function renderPlaces(places) {
         let model = document.createElement('a-entity');
         
         model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-        model.setAttribute('gltf-model', `${gltf};`);
+        model.setAttribute('gltf-model', `${gltf}`);
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
         model.setAttribute('scale', '0.5 0.5 0.5');
