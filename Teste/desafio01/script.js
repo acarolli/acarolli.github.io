@@ -30,7 +30,6 @@ function renderPlaces(places) {
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
         model.setAttribute('scale', '0.5 0.5 0.5');
-        model.setAttribute('id', 'object3d');
         
 
         model.addEventListener('loaded', () => {
