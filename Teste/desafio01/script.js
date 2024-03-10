@@ -11,6 +11,7 @@ function staticLoadPlaces() {
             location: {
                 lat: -19.987079,
                 lng: -43.963870,
+                gltf: './assets/treasure/scene.gltf'
             }
         },
     ];
@@ -29,7 +30,7 @@ function renderPlaces(places) {
         model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
-        model.setAttribute('scale', '0.05 0.05 0.05');
+        model.setAttribute('scale', '0.5 0.5 0.5');
         
 
         model.addEventListener('loaded', () => {
@@ -107,9 +108,13 @@ function renderPlaces(places) {
                 const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
                 
 
-                if (distance <= 50) {
+                if (distance <= 200) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
+                    
+                    
+                    var object3D = document.getElementById('object3d');
+                    object3D.setAttribute('visible', distance >= 200);
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
