@@ -16,7 +16,7 @@ function staticLoadPlaces() {
                 id: 'objeto3d1',
             }
         },
-        {
+        /*{
             name: 'Placa',
             location: {
                 lat: -19.987179,
@@ -25,7 +25,7 @@ function staticLoadPlaces() {
                 scale: '0.08 0.08 0.08',
                 id: 'objeto3d2',
             }
-        },
+        },*/
     ];
 }
 
