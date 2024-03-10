@@ -29,7 +29,8 @@ function renderPlaces(places) {
         model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
-        model.setAttribute('scale', '0.05 0.05 0.05');        
+        model.setAttribute('scale', '0.05 0.05 0.05');
+        
 
         model.addEventListener('loaded', () => {
             window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
@@ -56,16 +57,25 @@ function renderPlaces(places) {
         }
 
         // Function to update proximity text and distance
-        function updateProximity(distance) {            
+        function updateProximity(distance) {
+            const proximityText = document.getElementById('proximityText');
+            const distanceText = document.getElementById('distanceText');
+            
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
 
             if (distance <= 200) {
                 topdiv.innerHTML = 'Dica Próxima!';
                 bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
+               
+                //proximityText.setAttribute('text', 'value', 'You are close to a tip');
+                //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
                 topdiv.innerHTML = ('Nenhuma dica por perto.');
                 bottomdiv.innerHTML = ('Desvende a charada!');
+               
+                //proximityText.setAttribute('text', 'value', '');
+                //distanceText.setAttribute('text', 'value', '');
             }
          updateProximity(distance);
         }
@@ -86,6 +96,10 @@ function renderPlaces(places) {
             // Coordinates for each object
             const objectCoordinates = [
                 { latitude: -19.987079, longitude: -43.963870 },
+                //{ latitude: -19.973211; longitude: -43.969754 },
+                //{ latitude: -19.985079; longitude: -43.961870 },
+                //{ latitude: -19.984079; longitude: -43.960870 },
+                // Add coordinates for all 25 objects
             ];
 
             // Check distance for each object
@@ -96,8 +110,6 @@ function renderPlaces(places) {
                 if (distance <= 50) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
-                    var object3D = document.getElementById('object3d');
-                    object3D.setAttribute('visible', true);
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
@@ -105,8 +117,6 @@ function renderPlaces(places) {
                       } 
                     // Show proximity and distance text
                     updateProximity(distance);
-                } else {
-                    object3D.setAttribute('visible', false)
                 } 
             });
         });
