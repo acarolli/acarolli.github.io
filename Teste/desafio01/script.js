@@ -11,21 +11,8 @@ function staticLoadPlaces() {
             location: {
                 lat: -19.987079,
                 lng: -43.963870,
-                url: './assets/trasure/scene.gltf',
-                scale: '0.05 0.05 0.05',
-                id: 'objeto13d',
             }
         },
-        /*{
-            name: 'Placa',
-            location: {
-                lat: -19.987179,
-                lng: -43.963970,
-                url: './assets/sign/scene.gltf',
-                scale: '0.08 0.08 0.08',
-                id: 'objeto23d',
-            }
-        },*/
     ];
 }
 
@@ -35,19 +22,14 @@ function renderPlaces(places) {
     places.forEach((place) => {
         let latitude = place.location.lat;
         let longitude = place.location.lng;
-        let id = place.location.id;
-        let gltf = place.location.url;
-        let scale = place.location.scale;
 
         let model = document.createElement('a-entity');
         
         model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-        model.setAttribute('gltf-model', `${gltf}`);
+        model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
-        model.setAttribute('scale', `${scale}`);
-        model.setAttribute('id', `${id}`);
-        
+        model.setAttribute('scale', '0.05 0.05 0.05');        
 
         model.addEventListener('loaded', () => {
             window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
@@ -87,7 +69,6 @@ function renderPlaces(places) {
             } else {
                 topdiv.innerHTML = ('Nenhuma dica por perto.');
                 bottomdiv.innerHTML = ('Desvende a charada!');
-            
             }
          updateProximity(distance);
         }
@@ -108,10 +89,6 @@ function renderPlaces(places) {
             // Coordinates for each object
             const objectCoordinates = [
                 { latitude: -19.987079, longitude: -43.963870 },
-                //{ latitude: -19.973211; longitude: -43.969754 },
-                //{ latitude: -19.985079; longitude: -43.961870 },
-                //{ latitude: -19.984079; longitude: -43.960870 },
-                // Add coordinates for all 25 objects
             ];
 
             // Check distance for each object
@@ -122,7 +99,7 @@ function renderPlaces(places) {
                 if (distance <= 50) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
-                    var object3D = document.getElementById('object3d1');
+                    var object3D = document.getElementById('object3d');
                     object3D.setAttribute('visible', true);
                     if (distance <= 10) {
                         x.style.display = "block";
