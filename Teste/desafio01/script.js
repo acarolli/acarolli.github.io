@@ -13,7 +13,7 @@ function staticLoadPlaces() {
                 lng: -43.963870,
                 url: './assets/trasure/scene.gltf',
                 scale: '0.05 0.05 0.05',
-                id: 'objeto3d1',
+                id: 'objeto13d',
             }
         },
         /*{
@@ -23,7 +23,7 @@ function staticLoadPlaces() {
                 lng: -43.963970,
                 url: './assets/sign/scene.gltf',
                 scale: '0.08 0.08 0.08',
-                id: 'objeto3d2',
+                id: 'objeto23d',
             }
         },*/
     ];
