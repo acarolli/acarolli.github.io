@@ -15,15 +15,6 @@ function staticLoadPlaces() {
                 id: 'object3d01',
             }
         },
-        {
-            name: 'Placa',
-            location: {
-                lat: -19.987089,
-                lng: -43.963880,
-                gltf: './assets/sign/scene.gltf',
-                id: 'object3d02',
-            }
-        },
     ];
 }
 
@@ -124,8 +115,6 @@ function renderPlaces(places) {
                     var x = document.getElementById("button");
                     var object3D01 = document.getElementById('object3d01');
                     object3D01.setAttribute('visible', distance >= 200);
-                    var object3D02 = document.getElementById('object3d02');
-                    object3D02.setAttribute('visible', distance >= 200);
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
