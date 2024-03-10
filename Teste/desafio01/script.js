@@ -112,7 +112,7 @@ function renderPlaces(places) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
                     var object3D = document.getElementById('object3d');
-                    object3D.setAttribute('visible', distance >= 200);
+                    object3D.setAttribute('visible', true);
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
@@ -120,6 +120,8 @@ function renderPlaces(places) {
                       } 
                     // Show proximity and distance text
                     updateProximity(distance);
+                } else {
+                    object3D.setAttribute('visible', false)
                 } 
             });
         });
