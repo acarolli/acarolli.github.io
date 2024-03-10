@@ -9,51 +9,10 @@ window.onload = () => {
 function staticLoadPlaces() {
     return [
         {
-            name: '01',
+            name: 'Pokèmon',
             location: {
-                lat: -19.973222,
-                lng: -43.969979,
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '02',
-            location: {
-                lat: -22.419336,
-                lng: -45.469415,
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '03',
-            location: {
-                lat: -19.98770155010817,
-                lng: -43.964001435893145,
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '04',
-            location: {
-                lat: -20.07188369083826, 
-                lng: -43.41430990192027,
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '05',
-            location: {
-                lat: -20.07170376925541, 
-                lng: -43.41438285759934, 
-                //elev: 715.4,
-            },
-        },
-        {
-            name: '06',
-            location: {
-                lat: -20.07158544343602,  
-                lng: -43.413926820386145,
-                //elev: 715.4,
+                 lat: -19.987079,
+                 lng: -43.963870,
             },
         },
     ];
@@ -61,9 +20,9 @@ function staticLoadPlaces() {
 
 var models = [
     {
-        url: './assets/treasure/scene.gltf',
+        url: './assets/magnemite/scene.gltf',
         scale: '0.5 0.5 0.5',
-        info: 'Você encontrou uma pista!',
+        info: 'Magnemite, Lv. 5, HP 10/10',
         rotation: '0 180 0',
     },
     {
