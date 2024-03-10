@@ -11,6 +11,19 @@ function staticLoadPlaces() {
             location: {
                 lat: -19.987079,
                 lng: -43.963870,
+                url: './assets/trasure/scene.gltf',
+                scale: '0.05 0.05 0.05',
+                id: 'objeto3d1',
+            }
+        },
+        {
+            name: 'Placa',
+            location: {
+                lat: -19.987179,
+                lng: -43.963970,
+                url: './assets/sign/scene.gltf',
+                scale: '0.08 0.08 0.08',
+                id: 'objeto3d2',
             }
         },
     ];
@@ -22,15 +35,18 @@ function renderPlaces(places) {
     places.forEach((place) => {
         let latitude = place.location.lat;
         let longitude = place.location.lng;
+        let id = place.location.id;
+        let gltf = place.location.url;
+        let scale = place.location.scale;
 
         let model = document.createElement('a-entity');
         
         model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-        model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
+        model.setAttribute('gltf-model', `${gltf}`);
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
-        model.setAttribute('scale', '0.15 0.15 0.15');
-        model.setAttribute('id', 'object3d');
+        model.setAttribute('scale', `${scale}`);
+        model.setAttribute('id', `${id}`);
         
 
         model.addEventListener('loaded', () => {
@@ -106,7 +122,7 @@ function renderPlaces(places) {
                 if (distance <= 50) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
-                    var object3D = document.getElementById('object3d');
+                    var object3D = document.getElementById('object3d1');
                     object3D.setAttribute('visible', true);
                     if (distance <= 10) {
                         x.style.display = "block";
