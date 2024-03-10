@@ -11,8 +11,6 @@ function staticLoadPlaces() {
             location: {
                 lat: -19.987079,
                 lng: -43.963870,
-                gltf: './assets/treasure/scene.gltf',
-                id: 'object3d01',
             }
         },
     ];
@@ -28,11 +26,11 @@ function renderPlaces(places) {
         let model = document.createElement('a-entity');
         
         model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-        model.setAttribute('gltf-model', `${gltf}`);
+        model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
         model.setAttribute('rotation', '0 180 0');
         model.setAttribute('animation-mixer', '');
         model.setAttribute('scale', '0.5 0.5 0.5');
-        model.setAttribute('id', `${id}`);
+        model.setAttribute('id', 'object3d');
         
 
         model.addEventListener('loaded', () => {
@@ -113,8 +111,8 @@ function renderPlaces(places) {
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
                     var x = document.getElementById("button");
-                    var object3D01 = document.getElementById('object3d01');
-                    object3D01.setAttribute('visible', distance >= 200);
+                    var object3D = document.getElementById('object3d');
+                    object3D.setAttribute('visible', distance >= 200);
                     if (distance <= 10) {
                         x.style.display = "block";
                       } else {
