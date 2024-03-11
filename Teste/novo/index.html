@@ -9,6 +9,7 @@
         <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
         <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
 
+        <script src="./script.js"></script>
         <link rel="stylesheet" type="text/css" href="./style.css"/>
 
     </head>
@@ -22,25 +23,8 @@
         </a-scene>
 
         <div  class="centered" >
-            <button id="button" type="button" onclick="click()">Aqui</button>
+            <button class="centered" id="button" type="button" onclick="click()">Aqui</button>
         </div>
-
-        <script type="text/javascript">
-            var visibilityred = document.getElementById(red);
-            var visibilitygreen = document.getElementById(green);
-    
-            function click() {
-                if (visibilityred === "true") {
-                    visibilityred = "false";
-                    visibilitygreen = "true";
-                    alert("Condição 01");
-                } else {
-                    visibilityred = "true";
-                    visibilitygreen = "false";
-                    alert("Condição 02");
-
-                }
-        </script>
 
     </body>
 
