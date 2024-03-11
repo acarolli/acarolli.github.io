@@ -10,29 +10,29 @@
 </head>
 <body style="margin: 0; overflow: hidden;">
 
+    <!-- Texto 1 (inicialmente oculto) -->
+    <div id="texto1" style="display: none;">Nenhuma tesouro por perto.</div>
+
+    <!-- Texto 3 (inicialmente oculto) -->
+    <div id="texto3" style="display: none;">Há um tesouro por perto!</div>
+
   <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
-            <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
+            <a-camera gps-new-camera='gpsMinDistance: 5' rotation-reader></a-camera>
     <!-- Adiciona o primeiro objeto GLTF -->
     <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870"></a-entity>
 
     <!-- Adiciona o segundo objeto GLTF -->
     <a-entity gltf-model="./assets/sign/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970"></a-entity>
+  </a-scene>
 
-    <!-- Texto 1 (inicialmente oculto) -->
-    <div id="texto1" style="display: none;">Nenhuma tesouro por perto.</div>
+    <!-- Botão para abrir página da internet -->
+    <button id="botao" style="display: none;">Abrir Tesouro</button>
 
     <!-- Texto 2 (inicialmente oculto) -->
     <div id="texto2" style="display: none;">Desvende a charada!</div>
 
-    <!-- Texto 3 (inicialmente oculto) -->
-    <div id="texto3" style="display: none;">Há um tesouro por perto!</div>
-
     <!-- Distância entre o usuário e os objetos (inicialmente oculta) -->
     <div id="distancia" style="display: none;"></div>
-
-    <!-- Botão para abrir página da internet -->
-    <button id="botao" style="display: none;">Abrir Tesouro</button>
-  </a-scene>
 
   <script>
     // Função para calcular a distância entre dois pontos (em metros)
