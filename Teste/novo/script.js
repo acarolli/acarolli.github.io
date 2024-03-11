@@ -1,17 +1,13 @@
-var visibilityred = document.querySelector("idred");
-var visibilitygreen = document.querySelector("idgreen");
-    
-    function clickChange() {
-            alert("Botão Clicado!");        
-        if (visibilityred === true) {
-            visibilityred.setAttribute("visible",false);
-            visibilitygreen.setAttribute("visible",true);
-            alert("Condição 01");
-        } else {
-            visibilityred.setAttribute("visible",true);
-            visibilitygreen.setAttribute("visible",false);
-            alert("Condição 02");
-        }
+    function toggleVisibility() {
+      var elementoVermelho = document.getElementById('idred');
+      var elementoVerde = document.getElementById('idgreen');
+      if (elementoVermelho.getAttribute('visible')) {
+        elementoVermelho.setAttribute('visible', 'false'); // Se visível, torna não visível
+        elementoVerde.setAttribute('visible', 'true'); // Se visível, torna não visível
+      } else {
+        elementoVermelho.setAttribute('visible', 'true'); // Se visível, torna não visível
+        elementoVerde.setAttribute('visible', 'false'); // Se visível, torna não visível
+      }
     }
 
 
