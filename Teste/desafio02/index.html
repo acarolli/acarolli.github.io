@@ -1,16 +1,12 @@
+
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Caça Ao Tesouro - BH</title>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-new-location-only.js'></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
-    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-  
+  <title>AR.js with GLTF Model at Static GeoPosition</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+</head>
+<body>
     <!--<script src="./script.js"></script-->
     <link rel="stylesheet" type="text/css" href="./style.css"/>
 </head>
@@ -22,7 +18,7 @@
         vr-mode-ui='enabled: false' 
         embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
-            <a-camera gps-new-camera rotation-reader></a-camera>
+            <a-entity gps-new-camera rotation-reader></a-entity>
 
     <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
 
@@ -39,3 +35,5 @@
     </script>
 </body>
 </html>
+
+
