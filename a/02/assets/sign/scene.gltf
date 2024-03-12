@@ -3,142 +3,86 @@
     {
       "bufferView": 2,
       "componentType": 5126,
-      "count": 65532,
+      "count": 612,
       "max": [
-        1.8154208660125732,
-        1.1087850332260132,
-        3.667856216430664
+        0.9820969700813293,
+        2.8099119663238525,
+        0.13045760989189148
       ],
       "min": [
-        -1.4519091844558716,
-        -2.6269686222076416,
-        -0.6010043621063232
+        -1.0179030895233154,
+        -0.2122783660888672,
+        -0.12977385520935059
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 2,
-      "byteOffset": 786384,
+      "byteOffset": 7344,
       "componentType": 5126,
-      "count": 65532,
+      "count": 612,
       "max": [
-        0.9997802972793579,
-        0.9999905824661255,
-        0.9999734163284302
+        1.0,
+        1.0,
+        1.0
       ],
       "min": [
-        -0.9999611973762512,
-        -0.999688982963562,
-        -0.9978887438774109
+        -1.0,
+        -1.0,
+        -1.0
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 1,
       "componentType": 5126,
-      "count": 65532,
+      "count": 612,
       "max": [
-        0.9997559785842896,
-        0.39038100838661194
+        0.9803727269172668,
+        0.9887593984603882
       ],
       "min": [
-        0.00024399999529123306,
-        0.00024399999529123306
+        0.021046355366706848,
+        0.017119169235229492
       ],
       "type": "VEC2"
     },
     {
       "bufferView": 0,
       "componentType": 5125,
-      "count": 329253,
-      "type": "SCALAR"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 1572768,
-      "componentType": 5126,
-      "count": 64787,
-      "max": [
-        1.8544650077819824,
-        1.1211512088775635,
-        3.5033650398254395
-      ],
-      "min": [
-        -1.4510959386825562,
-        -2.6828277111053467,
-        -0.6301641464233398
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 2350212,
-      "componentType": 5126,
-      "count": 64787,
-      "max": [
-        0.9997802972793579,
-        0.9999604225158691,
-        0.9999302625656128
-      ],
-      "min": [
-        -0.9998916387557983,
-        -0.9998655915260315,
-        -0.9988657236099243
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 1,
-      "byteOffset": 524256,
-      "componentType": 5126,
-      "count": 64787,
-      "max": [
-        0.9997559785842896,
-        0.39038100838661194
-      ],
-      "min": [
-        0.00024399999529123306,
-        0.00024399999529123306
-      ],
-      "type": "VEC2"
-    },
-    {
-      "bufferView": 0,
-      "byteOffset": 1317012,
-      "componentType": 5125,
-      "count": 270747,
+      "count": 1002,
       "type": "SCALAR"
     }
   ],
   "asset": {
     "extras": {
-      "author": "Austin Beaulier (https://sketchfab.com/Austin.Beaulier)",
-      "license": "SKETCHFAB Standard (https://sketchfab.com/licenses)",
-      "source": "https://sketchfab.com/3d-models/kilburn-bros-stereoscopic-view-historical-marker-68b6a023af764feab0b33539f6d8969a",
-      "title": "Kilburn Bros Stereoscopic view historical marker"
+      "author": "JeffK (https://sketchfab.com/jeffkolada)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/wooden-sign-baked-low-poly-0d2fbde1a0a446a1b3bb808664a7e08a",
+      "title": "Wooden Sign - Baked Low Poly"
     },
-    "generator": "Sketchfab-15.49.0",
+    "generator": "Sketchfab-14.64.0",
     "version": "2.0"
   },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 2400000,
+      "byteLength": 4008,
       "name": "floatBufferViews",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 1042552,
-      "byteOffset": 2400000,
+      "byteLength": 4896,
+      "byteOffset": 4008,
       "byteStride": 8,
       "name": "floatBufferViews",
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 3127656,
-      "byteOffset": 3442552,
+      "byteLength": 14688,
+      "byteOffset": 8904,
       "byteStride": 12,
       "name": "floatBufferViews",
       "target": 34962
@@ -146,30 +90,25 @@
   ],
   "buffers": [
     {
-      "byteLength": 6570208,
+      "byteLength": 23592,
       "uri": "scene.bin"
     }
   ],
-  "extensionsUsed": [
-    "KHR_materials_unlit"
-  ],
   "images": [
     {
-      "uri": "textures/model_Material_u1_v1_baseColor.jpeg"
+      "uri": "textures/Signpost_Tall_Baked_Dark_baseColor.jpeg"
     }
   ],
   "materials": [
     {
       "doubleSided": true,
-      "extensions": {
-        "KHR_materials_unlit": {}
-      },
-      "name": "model_Material_u1_v1",
+      "name": "Signpost_Tall_Baked_Dark",
       "pbrMetallicRoughness": {
         "baseColorTexture": {
           "index": 0
         },
-        "metallicFactor": 0.0
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.9
       }
     }
   ],
@@ -188,21 +127,6 @@
           "mode": 4
         }
       ]
-    },
-    {
-      "name": "Object_1",
-      "primitives": [
-        {
-          "attributes": {
-            "NORMAL": 5,
-            "POSITION": 4,
-            "TEXCOORD_0": 6
-          },
-          "indices": 7,
-          "material": 0,
-          "mode": 4
-        }
-      ]
     }
   ],
   "nodes": [
@@ -211,17 +135,17 @@
         1
       ],
       "matrix": [
-        0.37415433578420476,
-        -0.2828431293825861,
-        -0.13725638091738107,
+        1.0,
         0.0,
-        -0.018842077908477473,
-        0.1928021363946587,
-        -0.448668396018057,
         0.0,
-        0.31382242466980514,
-        0.34879524657783095,
-        0.13670542058776833,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
         0.0,
         0.0,
         0.0,
@@ -232,18 +156,43 @@
     },
     {
       "children": [
-        2,
+        2
+      ],
+      "name": "root"
+    },
+    {
+      "children": [
         3
       ],
-      "name": "model.obj.cleaner.materialmerger.gles"
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "GLTF_SceneRootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "name": "Signpost_Tall_Baked_dark_0"
     },
     {
       "mesh": 0,
-      "name": "Object_2"
-    },
-    {
-      "mesh": 1,
-      "name": "Object_3"
+      "name": "Object_4"
     }
   ],
   "samplers": [
