@@ -20,10 +20,10 @@
         embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
             <a-camera gps-new-camera='gpsMinDistance: 5' rotation-reader></a-camera>
-            <a-entity id="idred" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
+            <a-entity id="idred" gltf-model="url(./assets/treasure/scene.gltf)" animation-mixer gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
             <a-entity id="idblue" gltf-model="./assets/sign/scene.gltf" animation-mixer gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="1 1 1" visible="true"></a-entity>
             <a-entity id="idgreen" material='color: green' geometry='primitive: box' gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="10 10 10" visible="false"></a-entity>
-            <a-entity id="idyellow" material='color: green' geometry='primitive: box' gps-new-entity-place="latitude: -19.987279; longitude: -43.964070" scale="10 10 10" visible="true"></a-entity>
+            <a-entity id="idyellow" material='color: yellow' geometry='primitive: box' gps-new-entity-place="latitude: -19.987279; longitude: -43.964070" scale="10 10 10" visible="true"></a-entity>
         </a-scene>
 
         <div  class="centered" >
