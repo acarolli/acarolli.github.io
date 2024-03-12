@@ -23,14 +23,14 @@
 
     <a-camera gps-new-camera rotation-reader></a-camera>
 
-    <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
-    <a-entity id="invisible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    <a-entity id="invisible-object" gltf-model="./assets/sign/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
     
     </a-scene>
 
 <div  class="centered" >
-    <div class="button" onclick="toggleVisibility()">Toggle Visibility</div>
-</div>
+        <button id="button" type="button" onclick="openWebsite()">Abrir</button>
+    </div>
     <div class="bottom-text" id="bottomdiv">Texto 02</div>
 
     <script>
@@ -48,31 +48,57 @@
       }
     }
 
-    window.addEventListener('load', () => {
-    const camera = document.querySelector('[gps-new-camera]');
-    const chest = document.querySelector('visible-object');
-    let check;
+function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Radius of the earth in meters
+            const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+            const φ2 = lat2 * Math.PI/180;
+            const Δφ = (lat2-lat1) * Math.PI/180;
+            const Δλ = (lon2-lon1) * Math.PI/180;
 
-    chest.addEventListener('markerFound', () => {
-        let cameraPosition = camera.object3D.position;
-        let markerPosition = chest.object3D.position;
-        let distance = cameraPosition.distanceTo(markerPosition)
+            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
-        check = setInterval(() => {
-            cameraPosition = camera.object3D.position;
-            markerPosition = chest.object3D.position;
-            distance = cameraPosition.distanceTo(markerPosition)
+            const d = R * c; // Distance in meters
+            return d;
+        }
 
-            // do what you want with the distance:
-            console.log(distance);
-            bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-        }, 100);
-    });
+        function updateProximity(distance) {
+            
+            const topdiv = document.getElementById('topdiv');
+            const bottomdiv = document.getElementById('bottomdiv');
+            var visibleObject = document.getElementById('visible-object');
+            var invisibleObject = document.getElementById('invisible-object');
+            var button = document.getElementById("button");
 
-    chest.addEventListener('markerLost', () => {
-      clearInterval(check);
-    })
-})
+            if (distance > 200){
+                topdiv.innerHTML = ('Nenhuma dica por perto.');
+                bottomdiv.innerHTML = ('Desvende a charada!');
+                visibleObject.setAttribute('visible', false);
+                invisibleObject.setAttribute('visible', false);
+                button.style.display = "none"
+            } else if (distance <= 200 && distancia > 50) {
+                topdiv.innerHTML = 'Dica Próxima!';
+                bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
+                visibleObject.setAttribute('visible', false);
+                invisibleObject.setAttribute('visible', false);
+                button.style.display = "none"
+            } else if (distancia <= 50 && distancia > 10) {
+                visibleObject.setAttribute('visible', true);
+                invisibleObject.setAttribute('visible', true);
+                button.style.display = "none"               
+            } else if (distancia <= 10){
+                button.style.display = "block"
+            }
+         updateProximity(distance);
+        }
+
+        function openWebsite() {
+            // Implement your logic to open a different website for each object
+            window.open("https://www.invisio360.com", "_blank");
+            //alert('Opening website...');
+        }
     </script>
     
 </body>
