@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Caça Ao Tesouro - BH</title>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-animation-mixer/dist/aframe-animation-mixer.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="./style.css"/>
+</head>
+
+<body style='margin: 0; overflow: hidden;'>
+    <div class="top-text" id="topdiv">Texto 01</div>
+
+    <a-scene 
+        vr-mode-ui='enabled: false' 
+        embedded
+        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;' renderer='antialias: true; alpha: true'>
+
+    <a-camera gps-new-camera rotation-reader></a-camera>
+
+    <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    <a-entity id="invisible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    
+    </a-scene>
+
+<div  class="centered" >
+        <button id="button" type="button" onclick="openWebsite()">Abrir</button>
+    </div>
+    <div class="bottom-text" id="bottomdiv">Texto 02</div>
+
+    <script>
+        // Function to calculate distance between two coordinates
+  function toggleVisibility() {
+      var visibleObject = document.getElementById('visible-object');
+      var invisibleObject = document.getElementById('invisible-object');
+
+      if (visibleObject.getAttribute('visible') === true) {
+        visibleObject.setAttribute('visible', false);
+        invisibleObject.setAttribute('visible', true);
+      } else {
+        visibleObject.setAttribute('visible', true);
+        invisibleObject.setAttribute('visible', false);
+      }
+    }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Radius of the earth in meters
+            const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+            const φ2 = lat2 * Math.PI/180;
+            const Δφ = (lat2-lat1) * Math.PI/180;
+            const Δλ = (lon2-lon1) * Math.PI/180;
+
+            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            const d = R * c; // Distance in meters
+            return d;
+        }
+
+        // Function to update proximity text and distance
+        function updateProximity(distance) {
+            
+            const topdiv = document.getElementById('topdiv');
+            const bottomdiv = document.getElementById('bottomdiv');
+
+            if (distance <= 200) {
+                topdiv.innerHTML = 'Dica Próxima!';
+                bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
+               
+                //proximityText.setAttribute('text', 'value', 'You are close to a tip');
+                //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
+            } else {
+                topdiv.innerHTML = ('Nenhuma dica por perto.');
+                bottomdiv.innerHTML = ('Desvende a charada!');
+               
+                //proximityText.setAttribute('text', 'value', '');
+                //distanceText.setAttribute('text', 'value', '');
+            }
+         updateProximity(distance);
+        }
+
+
+        // Function to open website
+        function openWebsite() {
+            // Implement your logic to open a different website for each object
+            window.open("https://www.invisio360.com", "_blank");
+            //alert('Opening website...');
+        }
+
+        // Event listener for location update
+        window.addEventListener('gps-camera-update-position', function(e) {
+            const userLatitude = e.detail.position.latitude;
+            const userLongitude = e.detail.position.longitude;
+
+            // Coordinates for each object
+            const objectCoordinates = [
+                { latitude: -19.987079, longitude: -43.963870 },
+                //{ latitude: -19.973211; longitude: -43.969754 },
+                //{ latitude: -19.985079; longitude: -43.961870 },
+                //{ latitude: -19.984079; longitude: -43.960870 },
+                // Add coordinates for all 25 objects
+            ];
+
+            // Check distance for each object
+            objectCoordinates.forEach(function(coord) {
+                const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
+                
+
+            const topdiv = document.getElementById('topdiv');
+            const bottomdiv = document.getElementById('bottomdiv');
+            var visibleObject = document.getElementById('visible-object');
+            var invisibleObject = document.getElementById('invisible-object');
+            var button = document.getElementById("button");
+
+                if (distance > 200){
+                    topdiv.innerHTML = ('Nenhuma dica por perto.');
+                    bottomdiv.innerHTML = ('Desvende a charada!');
+                    visibleObject.setAttribute('visible', false);
+                    invisibleObject.setAttribute('visible', false);
+                    button.style.display = "none"
+                    updateProximity(distance);                    
+                } else if (distance <= 200 && distance > 50) {
+                    topdiv.innerHTML = 'Dica Próxima!';
+                    bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
+                    visibleObject.setAttribute('visible', false);
+                    invisibleObject.setAttribute('visible', false);
+                    button.style.display = "none"
+                    updateProximity(distance);
+                } else if (distance <= 50 && distance > 10) {
+                    visibleObject.setAttribute('visible', true);
+                    invisibleObject.setAttribute('visible', true);
+                    button.style.display = "none"    
+                    updateProximity(distance);           
+                } else if (distance <= 10){
+                    button.style.display = "block"
+                    updateProximity(distance);
+                } 
+                    updateProximity(distance);
+            });
+        });
+
+    </script>
+    
+</body>
+</html>
