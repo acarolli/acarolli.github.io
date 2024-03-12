@@ -68,6 +68,7 @@
             tick: function () {
                 if (!navigator.geolocation) {
                     console.log('Geolocation is not supported by this browser.');
+                    alert('Geolocation is not supported by this browser.');
                     return;
                 }
 
@@ -111,6 +112,8 @@
 
                 const onError = (error) => {
                     console.error('Error occurred while getting geolocation:', error);
+                    alert('Error occurred while getting geolocation:');
+
                 };
 
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
