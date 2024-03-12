@@ -8,31 +8,36 @@
   <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
   <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
 </head>
-<body style="margin: 0; overflow: hidden;">
+<body style='margin: 0; overflow: hidden;'>
 
     <!-- Texto 1 (inicialmente oculto) -->
-    <div id="texto1" style="display: none;">Nenhuma tesouro por perto.</div>
+    <div class="top-text" id="texto1" style="display: none;">Nenhuma tesouro por perto.</div>
 
     <!-- Texto 3 (inicialmente oculto) -->
-    <div id="texto3" style="display: none;">Há um tesouro por perto!</div>
+    <div class="top-text" id="texto3" style="display: none;">Há um tesouro por perto!</div>
 
-  <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
-            <a-camera gps-new-camera='gpsMinDistance: 5' rotation-reader></a-camera>
-    <!-- Adiciona o primeiro objeto GLTF -->
-    <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870"></a-entity>
+  <a-scene 
+        vr-mode-ui='enabled: false' 
+        embedded
+        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+      <a-camera gps-new-camera='gpsMinDistance: 5' rotation-reader></a-camera>
+      <!-- Adiciona o primeiro objeto GLTF -->
+      <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870"></a-entity>
 
-    <!-- Adiciona o segundo objeto GLTF -->
-    <a-entity gltf-model="./assets/sign/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970"></a-entity>
+      <!-- Adiciona o segundo objeto GLTF -->
+      <a-entity gltf-model="./assets/sign/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970"></a-entity>
   </a-scene>
 
     <!-- Botão para abrir página da internet -->
-    <button id="botao" style="display: none;">Abrir Tesouro</button>
+    <div  class="centered" >
+    <button id="botao" type="button" style="display: none;">Abrir Tesouro</button>
+    </div>
 
     <!-- Texto 2 (inicialmente oculto) -->
-    <div id="texto2" style="display: none;">Desvende a charada!</div>
+    <div class="bottom-text" id="texto2" style="display: none;">Desvende a charada!</div>
 
     <!-- Distância entre o usuário e os objetos (inicialmente oculta) -->
-    <div id="distancia" style="display: none;"></div>
+    <div class="bottom-text" id="distancia" style="display: none;"></div>
 
   <script>
     // Função para calcular a distância entre dois pontos (em metros)
