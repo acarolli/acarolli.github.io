@@ -18,7 +18,7 @@
 
         <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
             <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
-            <a-entity id="idred" material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="10 10 10" visible="true"></a-entity>
+            <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
             <a-entity id="idgreen" material='color: green' geometry='primitive: box' gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="10 10 10" visible="false"></a-entity>
         </a-scene>
 
