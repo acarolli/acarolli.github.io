@@ -3,6 +3,7 @@
       var elementoAzul = document.getElementById('idblue');
       var elementoAmarelo = document.getElementById('idyellow');
       var elementoVerde = document.getElementById('idgreen');
+      
       if (elementoVermelho.getAttribute('visible')) {
         elementoVermelho.setAttribute('visible', 'false'); // Se visível, torna não visível
         elementoAmarelo.setAttribute('visible', 'false'); // Se visível, torna não visível

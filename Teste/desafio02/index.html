@@ -1,39 +1,88 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AR.js with GLTF Model at Static GeoPosition</title>
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <title>AR.js com A-Frame</title>
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
 </head>
 <body>
-    <!--<script src="./script.js"></script-->
-    <link rel="stylesheet" type="text/css" href="./style.css"/>
-</head>
+  <a-scene embedded arjs="sourceType: webcam;">
+    <!-- Câmera com gps-new-camera -->
+    <a-entity gps-new-camera></a-entity>
 
-<body style='margin: 0; overflow: hidden;'>
-    <div class="top-text" id="topdiv"> </div>
+    <!-- Objetos GLTF com coordenadas geográficas estáticas -->
+    <a-entity gltf-model="#objeto1" gps-entity-place="latitude: -19.987079; longitude: -43.963870;" scale="0.2 0.2 0.2" visible="true"></a-entity>
+    <a-entity gltf-model="#objeto2" gps-entity-place="latitude: -19.987179; longitude: -43.963970;" scale="0.2 0.2 0.2" visible="true"></a-entity>
 
-<a-scene 
-        vr-mode-ui='enabled: false' 
-        embedded
-        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
-            <a-entity gps-new-camera rotation-reader></a-entity>
+    <!-- Textos -->
+    <a-entity id="texto1" position="0 2 -5" visible="false" text="value: Texto 1; color: white; align: center;"></a-entity>
+    <a-entity id="texto2" position="0 -2 -5" visible="false" text="value: Texto 2; color: white; align: center;"></a-entity>
+    <a-entity id="texto3" position="0 2 -5" visible="false" text="value: Texto 3; color: white; align: center;"></a-entity>
+    <a-entity id="distancia" position="0 -2 -5" visible="false" text="value: Distância: ; color: white; align: center;"></a-entity>
 
-    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
+    <!-- Botão -->
+    <a-entity id="botao" position="0 -3 -5" visible="false" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" text="value: Abrir Site; color: white; align: center;" cursor-listener></a-entity>
+  </a-scene>
 
-    </a-scene>
+  <!-- Modelos GLTF -->
+  <a-assets>
+    <a-asset-item id="objeto1" src="assets/treasure/scene.gltf"></a-asset-item>
+    <a-asset-item id="objeto2" src="assets/sign/scene.gltf"></a-asset-item>
+  </a-assets>
 
-    <div  class="centered" >
-        <button id="button" type="button" onclick="openWebsite()"></button>
-    </div>
+  <script>
+    // Obter a distância entre dois pontos
+    function getDistance(lat1, lon1, lat2, lon2) {
+      var R = 6371; // raio da Terra em km
+      var dLat = (lat2 - lat1) * Math.PI / 180;
+      var dLon = (lon2 - lon1) * Math.PI / 180;
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var distance = R * c; // distância em km
+      return distance * 1000; // converter para metros
+    }
 
-    <div class="bottom-text" id="bottomdiv"> </div>
-    <script>
-        // Function to calculate distance between two coordinates
-       calculateDistance();
-    </script>
+    // Atualizar a visibilidade dos elementos com base na distância
+    function updateVisibility(position) {
+      var latUser = position.coords.latitude;
+      var lonUser = position.coords.longitude;
+      var distance = getDistance(latUser, lonUser, -19.987079, -43.963870);
+
+      // Esconder textos e botão
+      document.getElementById("texto1").setAttribute("visible", "false");
+      document.getElementById("texto2").setAttribute("visible", "false");
+      document.getElementById("texto3").setAttribute("visible", "false");
+      document.getElementById("distancia").setAttribute("visible", "false");
+      document.getElementById("botao").setAttribute("visible", "false");
+
+      // Exibir texto 1 e texto 2 se a distância for maior que 200 metros
+      if (distance > 200) {
+        document.getElementById("texto1").setAttribute("visible", "true");
+        document.getElementById("texto2").setAttribute("visible", "true");
+      }
+      // Exibir texto 3 e distância se a distância for de 200 metros ou menos
+      else if (distance <= 200 && distance > 50) {
+        document.getElementById("texto1").setAttribute("visible", "false");
+        document.getElementById("texto2").setAttribute("visible", "false");
+        document.getElementById("texto3").setAttribute("visible", "true");
+        document.getElementById("distancia").setAttribute("visible", "true");
+        document.getElementById("distancia").setAttribute("text", "value: Distância: " + Math.round(distance) + " metros;");
+      }
+      // Exibir botão se a distância for de 10 metros ou menos
+      else if (distance <= 10) {
+        document.getElementById("botao").setAttribute("visible", "true");
+      }
+    }
+
+    // Obter a posição do usuário
+    function getPosition() {
+      navigator.geolocation.getCurrentPosition(updateVisibility);
+    }
+
+    // Atualizar a visibilidade quando a posição do usuário mudar
+    navigator.geolocation.watchPosition(updateVisibility);
+  </script>
 </body>
 </html>
-
-
