@@ -1,120 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-      <title>A-Frame com GPS e Câmera</title>
-  
-      <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-      <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
-      <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
+<html>
+<head>
+  <title>AR.js com GPS-New-Camera e GLTF</title>
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.3.2/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
 
+  <a-scene embedded arjs="trackingMethod: best; sourceType: webcam;">
+    <!-- Adiciona a câmera com o componente gps-new-camera -->
+    <a-entity gps-new-camera></a-entity>
 
-      <link rel="stylesheet" type="text/css" href="./style.css"/>
-  </head>
+    <!-- Adiciona um objeto GLTF na frente da câmera -->
+    <a-entity gltf-model="url(./assets/treasure/scene.gltf)" position="0 0 -5"></a-entity>
+  </a-scene>
 
-  <body style='margin: 0; overflow: hidden;'>
-
-    <!-- Texto 1 (inicialmente oculto) -->
-    <div class="top-text" id="texto1" style="display: block;">Nenhuma tesouro por perto.</div>
-
-    <!-- Texto 3 (inicialmente oculto) -->
-    <div class="top-text" id="texto3" style="display: none;">Há um tesouro por perto!</div>
-
-    <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
-      <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
-    
-      <!-- Adiciona o primeiro objeto GLTF -->
-      <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
-
-      <!-- Adiciona o segundo objeto GLTF -->
-      <a-entity gltf-model="./assets/sign/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
-    </a-scene>
-
-    <!-- Botão para abrir página da internet -->
-    <div  class="centered" >
-      <button id="botao" type="button" style="display: none;">Abrir Tesouro</button>
-    </div>
-
-    <!-- Texto 2 (inicialmente oculto) -->
-    <div class="bottom-text" id="texto2" style="display: block;">Desvende a charada!</div>
-
-    <!-- Distância entre o usuário e os objetos (inicialmente oculta) -->
-    <div class="bottom-text" id="distancia" style="display: none;"></div>
-
-  <script>
-    // Função para calcular a distância entre dois pontos (em metros)
-    function calcularDistancia(lat1, lon1, lat2, lon2) {
-      var R = 6371; // Raio da Terra em km
-      var dLat = (lat2 - lat1) * Math.PI / 180; // Conversão para radianos
-      var dLon = (lon2 - lon1) * Math.PI / 180; // Conversão para radianos
-      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-              Math.sin(dLon/2) * Math.sin(dLon/2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      var d = R * c; // Distância em km
-      return d * 1000; // Converter para metros
-    }
-
-    // Função para atualizar a visibilidade dos elementos com base na distância
-    function atualizarVisibilidade(position) {
-      // Coordenadas do usuário
-      var latUsuario = position.coords.latitude;
-      var lonUsuario = position.coords.longitude;
-
-      // Coordenadas dos objetos (defina as coordenadas corretas)
-      var latObjeto1 = -19.987079;
-      var lonObjeto1 = -43.963870;
-
-      // Calcular a distância entre o usuário e os objetos
-      var distanciaObjeto1 = calcularDistancia(latUsuario, lonUsuario, latObjeto1, lonObjeto1);
-      var distanciaObjeto2 = calcularDistancia(latUsuario, lonUsuario, latObjeto2, lonObjeto2);
-
-      // Atualizar a visibilidade dos textos e botão com base na distância
-      if (distanciaObjeto1 > 200 && distanciaObjeto2 > 200) {
-        document.getElementById('texto1').style.display = 'block';
-        document.getElementById('texto2').style.display = 'block';
-        document.getElementById('texto3').style.display = 'none';
-        document.getElementById('distancia').style.display = 'none';
-        document.getElementById('botao').style.display = 'none';
-      } else {
-        document.getElementById('texto1').style.display = 'none';
-        document.getElementById('texto2').style.display = 'none';
-        document.getElementById('texto3').style.display = 'block';
-        document.getElementById('distancia').style.display = 'block';
-        document.getElementById('distancia').textContent = "Distância: " + distanciaObjeto1.toFixed(2) + " metros";
-        if (distanciaObjeto1 <= 50) {
-          document.querySelector('a-entity[gltf-model="./assets/treasure/scene.gltf"]').setAttribute('visible', false);
-          document.querySelector('a-entity[gltf-model="./assets/sign/scene.gltf"]').setAttribute('visible', true);
-        } else {
-          document.querySelector('a-entity[gltf-model="./assets/treasure/scene.gltf"]').setAttribute('visible', true);
-          document.querySelector('a-entity[gltf-model="./assets/sign/scene.gltf"]').setAttribute('visible', false);
-        }
-        if (distanciaObjeto1 <= 10) {
-          document.getElementById('botao').style.display = 'block';
-        } else {
-          document.getElementById('botao').style.display = 'none';
-        }
-      }
-    }
-
-    // Função para abrir a página da internet ao clicar no botão
-    function abrirPagina() {
-      window.open('html://www.invisio360.com/', '_blank');
-    }
-
-    // Função de erro para o caso de falha na obtenção da posição do usuário
-    function erroGPS() {
-      console.log('Não foi possível obter a localização do usuário.');
-    }
-
-    // Iniciar a obtenção da posição do usuário
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(atualizarVisibilidade, erroGPS);
-    } else {
-      console.log('Geolocalização não é suportada neste navegador.');
-    }
-  </script>
 </body>
 </html>
