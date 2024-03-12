@@ -1,88 +1,134 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>AR.js com A-Frame</title>
-  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Hunt AR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ar.js"></script>
+    <style>
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            z-index: 999;
+        }
+        #button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <a-scene embedded arjs="sourceType: webcam;">
-    <!-- Câmera com gps-new-camera -->
-    <a-entity gps-new-camera></a-entity>
+    <div id="overlay">
+        <div id="text1" style="display: block;">Text 1</div>
+        <div id="distance" style="display: none;"></div>
+        <div id="text2" style="display: block;">Text 2</div>
+        <div id="text3" style="display: none;">Text 3</div>
+        <button id="button" style="display: none;">Open Website</button>
+    </div>
 
-    <!-- Objetos GLTF com coordenadas geográficas estáticas -->
-    <a-entity gltf-model="#objeto1" gps-entity-place="latitude: -19.987079; longitude: -43.963870;" scale="0.2 0.2 0.2" visible="true"></a-entity>
-    <a-entity gltf-model="#objeto2" gps-entity-place="latitude: -19.987179; longitude: -43.963970;" scale="0.2 0.2 0.2" visible="true"></a-entity>
+    <a-scene gps-camera rotation-reader embedded arjs="sourceType: webcam;">
+        <!-- Assets -->
+        <a-asset>
+            <a-entity id="object1" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870"></a-entity>
+            <a-entity id="object2" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970"></a-entity>
+        </a-asset>
+    </a-scene>
 
-    <!-- Textos -->
-    <a-entity id="texto1" position="0 2 -5" visible="false" text="value: Texto 1; color: white; align: center;"></a-entity>
-    <a-entity id="texto2" position="0 -2 -5" visible="false" text="value: Texto 2; color: white; align: center;"></a-entity>
-    <a-entity id="texto3" position="0 2 -5" visible="false" text="value: Texto 3; color: white; align: center;"></a-entity>
-    <a-entity id="distancia" position="0 -2 -5" visible="false" text="value: Distância: ; color: white; align: center;"></a-entity>
+    <script>
+        const MAX_DISTANCE = 200; // Max distance to show texts
+        const MIN_DISTANCE = 50; // Min distance to show distance and object
+        const MIN_BUTTON_DISTANCE = 10; // Min distance to show button
 
-    <!-- Botão -->
-    <a-entity id="botao" position="0 -3 -5" visible="false" geometry="primitive: plane; width: 1; height: 0.5" material="color: blue" text="value: Abrir Site; color: white; align: center;" cursor-listener></a-entity>
-  </a-scene>
+        const overlay = document.getElementById('overlay');
+        const text1 = document.getElementById('text1');
+        const distance = document.getElementById('distance');
+        const text2 = document.getElementById('text2');
+        const text3 = document.getElementById('text3');
+        const button = document.getElementById('button');
 
-  <!-- Modelos GLTF -->
-  <a-assets>
-    <a-asset-item id="objeto1" src="assets/treasure/scene.gltf"></a-asset-item>
-    <a-asset-item id="objeto2" src="assets/sign/scene.gltf"></a-asset-item>
-  </a-assets>
+        AFRAME.registerComponent('rotation-reader', {
+            tick: function () {
+                if (!navigator.geolocation) {
+                    console.log('Geolocation is not supported by this browser.');
+                    return;
+                }
 
-  <script>
-    // Obter a distância entre dois pontos
-    function getDistance(lat1, lon1, lat2, lon2) {
-      var R = 6371; // raio da Terra em km
-      var dLat = (lat2 - lat1) * Math.PI / 180;
-      var dLon = (lon2 - lon1) * Math.PI / 180;
-      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-              Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      var distance = R * c; // distância em km
-      return distance * 1000; // converter para metros
-    }
+                const onSuccess = (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const camera = document.querySelector('[gps-camera]').components.camera.el.object3D;
+                    const object1 = document.querySelector('#object1').object3D;
+                    const dist = calculateDistance(lat, lon, object1.position.x, object1.position.z);
 
-    // Atualizar a visibilidade dos elementos com base na distância
-    function updateVisibility(position) {
-      var latUser = position.coords.latitude;
-      var lonUser = position.coords.longitude;
-      var distance = getDistance(latUser, lonUser, -19.987079, -43.963870);
+                    // Show texts based on distance
+                    if (dist > MAX_DISTANCE) {
+                        overlay.style.display = 'flex';
+                        text1.style.display = 'block';
+                        text2.style.display = 'block';
+                    } else if (dist <= MAX_DISTANCE && dist > MIN_DISTANCE) {
+                        overlay.style.display = 'flex';
+                        text1.style.display = 'none';
+                        text2.style.display = 'none';
+                        text3.style.display = 'block';
+                        distance.style.display = 'block';
+                        distance.textContent = 'Distance: ' + dist.toFixed(2) + ' meters';
+                    } else if (dist <= MIN_DISTANCE) {
+                        overlay.style.display = 'none';
+                        document.querySelector('#object1').setAttribute('visible', true);
+                        document.querySelector('#object2').setAttribute('visible', true);
 
-      // Esconder textos e botão
-      document.getElementById("texto1").setAttribute("visible", "false");
-      document.getElementById("texto2").setAttribute("visible", "false");
-      document.getElementById("texto3").setAttribute("visible", "false");
-      document.getElementById("distancia").setAttribute("visible", "false");
-      document.getElementById("botao").setAttribute("visible", "false");
+                        if (dist <= MIN_BUTTON_DISTANCE) {
+                            button.style.display = 'block';
+                            button.addEventListener('click', () => {
+                                window.open('http://www.invisio360.com', '_blank');
+                            });
+                        } else {
+                            button.style.display = 'none';
+                            button.removeEventListener('click', () => {
+                                window.open('http://www.invisio360.com', '_blank');
+                            });
+                        }
+                    }
+                };
 
-      // Exibir texto 1 e texto 2 se a distância for maior que 200 metros
-      if (distance > 200) {
-        document.getElementById("texto1").setAttribute("visible", "true");
-        document.getElementById("texto2").setAttribute("visible", "true");
-      }
-      // Exibir texto 3 e distância se a distância for de 200 metros ou menos
-      else if (distance <= 200 && distance > 50) {
-        document.getElementById("texto1").setAttribute("visible", "false");
-        document.getElementById("texto2").setAttribute("visible", "false");
-        document.getElementById("texto3").setAttribute("visible", "true");
-        document.getElementById("distancia").setAttribute("visible", "true");
-        document.getElementById("distancia").setAttribute("text", "value: Distância: " + Math.round(distance) + " metros;");
-      }
-      // Exibir botão se a distância for de 10 metros ou menos
-      else if (distance <= 10) {
-        document.getElementById("botao").setAttribute("visible", "true");
-      }
-    }
+                const onError = (error) => {
+                    console.error('Error occurred while getting geolocation:', error);
+                };
 
-    // Obter a posição do usuário
-    function getPosition() {
-      navigator.geolocation.getCurrentPosition(updateVisibility);
-    }
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+            }
+        });
 
-    // Atualizar a visibilidade quando a posição do usuário mudar
-    navigator.geolocation.watchPosition(updateVisibility);
-  </script>
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the Earth in kilometers
+            const dLat = (lat2 - lat1) * Math.PI / 180; // Convert degrees to radians
+            const dLon = (lon2 - lon1) * Math.PI / 180; // Convert degrees to radians
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = R * c * 1000; // Distance in meters
+
+            return distance;
+        }
+    </script>
 </body>
 </html>
