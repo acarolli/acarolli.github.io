@@ -14,7 +14,7 @@
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-    <div class="top-text" id="topdiv">Texto 01</div>
+    <div class="top-text" id="topdiv">Carregando Informações</div>
 
     <a-scene 
         vr-mode-ui='enabled: false' 
@@ -23,15 +23,15 @@
 
     <a-camera gps-new-camera rotation-reader></a-camera>
 
-    <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
-    <a-entity id="invisible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.02 0.02 0.02" visible="false"></a-entity>
+    <a-entity id="invisible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.02 0.02 0.02" visible="false"></a-entity>
     
     </a-scene>
 
 <div  class="centered" >
         <button id="button" type="button" onclick="openWebsite()">Abrir</button>
     </div>
-    <div class="bottom-text" id="bottomdiv">Texto 02</div>
+    <div class="bottom-text" id="bottomdiv">Carregando Informações</div>
 
     <script>
         // Function to calculate distance between two coordinates
@@ -140,6 +140,8 @@
                     updateProximity(distance);           
                 } else if (distance <= 10){
                     button.style.display = "block"
+                    visibleObject.setAttribute('visible', true);
+                    invisibleObject.setAttribute('visible', true);
                     updateProximity(distance);
                 } 
                     updateProximity(distance);
