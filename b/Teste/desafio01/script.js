@@ -58,6 +58,8 @@ function renderPlaces(places) {
 
         // Function to update proximity text and distance
         function updateProximity(distance) {
+            const proximityText = document.getElementById('proximityText');
+            const distanceText = document.getElementById('distanceText');
             
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
@@ -105,30 +107,16 @@ function renderPlaces(places) {
                 const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
                 
 
-                            const topdiv = document.getElementById('topdiv');
-            const bottomdiv = document.getElementById('bottomdiv');
-            var visibleObject = document.getElementById('visible-object');
-            var invisibleObject = document.getElementById('invisible-object');
-            var button = document.getElementById("button");
-
-            if (distance > 200){
-                topdiv.innerHTML = ('Nenhuma dica por perto.');
-                bottomdiv.innerHTML = ('Desvende a charada!');
-                visibleObject.setAttribute('visible', false);
-                invisibleObject.setAttribute('visible', false);
-                button.style.display = "none"
-            } else if (distance <= 200 && distance > 50) {
-                topdiv.innerHTML = 'Dica Próxima!';
-                bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-                visibleObject.setAttribute('visible', false);
-                invisibleObject.setAttribute('visible', false);
-                button.style.display = "none"
-            } else if (distance <= 50 && distance > 10) {
-                visibleObject.setAttribute('visible', true);
-                invisibleObject.setAttribute('visible', true);
-                button.style.display = "none"               
-            } else if (distance <= 10){
-                button.style.display = "block"
-            } 
+                if (distance <= 200) {
+                    // Show button if user is 10 meters away
+                    var x = document.getElementById("button");
+                    if (distance <= 10) {
+                        x.style.display = "block";
+                      } else {
+                        x.style.display = "none";
+                      } 
+                    // Show proximity and distance text
+                    updateProximity(distance);
+                } 
             });
         });
