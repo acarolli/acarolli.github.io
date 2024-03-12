@@ -16,16 +16,16 @@
     <!-- Texto 3 (inicialmente oculto) -->
     <div class="top-text" id="texto3" style="display: none;">Há um tesouro por perto!</div>
 
-  <a-scene 
+    <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
-      <a-camera gps-new-camera='gpsMinDistance: 5' rotation-reader></a-camera>
-      <!-- Adiciona o primeiro objeto GLTF -->
-      <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870"></a-entity>
+            <a-camera gps-camera='gpsMinDistance: 5' rotation-reader></a-camera>
+    <!-- Adiciona o primeiro objeto GLTF -->
+    <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870"></a-entity>
 
-      <!-- Adiciona o segundo objeto GLTF -->
-      <a-entity gltf-model="./assets/sign/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970"></a-entity>
+    <!-- Adiciona o segundo objeto GLTF -->
+    <a-entity gltf-model="./assets/sign/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970"></a-entity>
   </a-scene>
 
     <!-- Botão para abrir página da internet -->
