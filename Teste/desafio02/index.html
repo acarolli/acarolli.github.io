@@ -42,8 +42,8 @@
         <button id="button" style="display: none;">Open Website</button>
     </div>
 
-    <a-scene gps-camera rotation-reader embedded arjs="sourceType: webcam;">
-        <!-- Assets -->
+    <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
+    <a-camera gps-new-camera rotation-reader></a-camera>
         <a-asset>
             <a-entity id="object1" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870"></a-entity>
             <a-entity id="object2" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970"></a-entity>
