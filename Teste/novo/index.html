@@ -13,19 +13,18 @@
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-      <!--div id="conteudo"></div-->
+    <div class="top-text" id="topdiv"> </div>
 
-<div class="top-text" id="topdiv">.</div>
     <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
-    <a-camera gps-new-camera="minDistance: 0; maxDistance: 200;" rotation-reader></a-camera>
+    <a-camera gps-new-camera="minDistance: 0; maxDistance: 50;" rotation-reader></a-camera>
 
     <!-- Localizações -->
 
-    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
-    <a-entity id="object02" gltf-model="./assets/sign/scene.gltf" gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    <a-entity id="object01" gltf-model='./assets/treasure/scene.gltf' gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
+    <a-entity id="object02" gltf-model='./assets/sign/scene.gltf' gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
     
     </a-scene>
     <div  class="centered" >
@@ -47,7 +46,7 @@
         }
         function clickView() {
          var x = document.getElementById("object01");
-         var t = document.getElementById("object02");
+         var y = document.getElementById("object02");
               if (x === "true") {
                 x.setAttribute("visible",false);
                 y.setAttribute("visible",true);
@@ -59,7 +58,7 @@
 
     </script>
 
-  <script src="main.js"></script>
+  <!--script src="main.js"></script-->
 
 </body>
 </html>
