@@ -1,46 +1,24 @@
-window.onload = () => {
-     let places = staticLoadPlaces();
-     renderPlaces(places);
-     calculateDistance();
-};
+document.addEventListener('DOMContentLoaded', function() {
+  var conteudo = `
+      <div class="top-text" id="topdiv">.</div>
+    <div class="bottom-text" id="bottomdiv" style.bottom = "100px">.</div>
+    <a-scene 
+        vr-mode-ui='enabled: false' 
+        embedded
+        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+    <a-camera gps-camera="minDistance: 0; maxDistance: 200;" rotation-reader></a-camera>
 
-function staticLoadPlaces() {
-    return [
-        {
-            name: 'Treasure',
-            location: {
-                lat: -19.987079,
-                lng: -43.963870,
-            }
-        },
-    ];
-}
+    <!-- Localizações -->
 
-function renderPlaces(places) {
-    let scene = document.querySelector('a-scene');
-
-    places.forEach((place) => {
-        let latitude = place.location.lat;
-        let longitude = place.location.lng;
-
-        let model = document.createElement('a-entity');
-        
-        model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-        model.setAttribute('gltf-model', './assets/treasure/scene.gltf');
-        model.setAttribute('rotation', '0 180 0');
-        model.setAttribute('animation-mixer', '');
-        model.setAttribute('scale', '0.05 0.05 0.05');
-        
-
-        model.addEventListener('loaded', () => {
-            window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-        });
-
-        scene.appendChild(model);
-    });
-}
-
- function calculateDistance(lat1, lon1, lat2, lon2) {
+    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    
+    </a-scene>
+    <div  class="centered" >
+    <button id="button" type="button" hidden="hidden" onclick="openWebsite()"></button>
+</div>
+<script>
+        // Function to calculate distance between two coordinates
+        function calculateDistance(lat1, lon1, lat2, lon2) {
             const R = 6371e3; // Radius of the earth in meters
             const φ1 = lat1 * Math.PI/180; // φ, λ in radians
             const φ2 = lat2 * Math.PI/180;
@@ -60,24 +38,23 @@ function renderPlaces(places) {
         function updateProximity(distance) {
             const proximityText = document.getElementById('proximityText');
             const distanceText = document.getElementById('distanceText');
-            
+
             const topdiv = document.getElementById('topdiv');
             const bottomdiv = document.getElementById('bottomdiv');
 
             if (distance <= 200) {
                 topdiv.innerHTML = 'Dica Próxima!';
                 bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
-               
+
                 //proximityText.setAttribute('text', 'value', 'You are close to a tip');
                 //distanceText.setAttribute('text', 'value', 'Distance: ' + distance.toFixed(2) + ' meters');
             } else {
-                topdiv.innerHTML = ('Nenhuma dica por perto.');
-                bottomdiv.innerHTML = ('Desvende a charada!');
-               
+                topdiv.innerHTML = ('');
+                bottomdiv.innerHTML = ('');
+                
                 //proximityText.setAttribute('text', 'value', '');
                 //distanceText.setAttribute('text', 'value', '');
             }
-         updateProximity(distance);
         }
 
 
@@ -95,10 +72,7 @@ function renderPlaces(places) {
 
             // Coordinates for each object
             const objectCoordinates = [
-                { latitude: -19.987079, longitude: -43.963870 },
-                //{ latitude: -19.973211; longitude: -43.969754 },
-                //{ latitude: -19.985079; longitude: -43.961870 },
-                //{ latitude: -19.984079; longitude: -43.960870 },
+                { latitude: -19.987079; longitude: -43.963870 },
                 // Add coordinates for all 25 objects
             ];
 
@@ -109,14 +83,22 @@ function renderPlaces(places) {
 
                 if (distance <= 200) {
                     // Show button if user is 10 meters away
-                    var x = document.getElementById("button");
+                    let element = document.getElementById("button")
+                    let hidden = element.getAttribute("hidden");
                     if (distance <= 10) {
-                        x.style.display = "block";
-                      } else {
-                        x.style.display = "none";
-                      } 
+                    if (hidden) {
+                        element.removeAttribute("hidden")
+                    } else {
+                        element.setAttribute("hidden", "hidden");
+                    }
+                    }
                     // Show proximity and distance text
                     updateProximity(distance);
-                } 
+                }
             });
         });
+    </script>
+      `;
+  
+  document.getElementById('conteudo').innerHTML = conteudo;
+});
