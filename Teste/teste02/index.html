@@ -11,7 +11,7 @@
 <body style='margin: 0; overflow: hidden;'>
 
     <!-- Texto 1 (inicialmente oculto) -->
-    <div class="top-text" id="texto1" style="display: none;">Nenhuma tesouro por perto.</div>
+    <div class="top-text" id="texto1" style="display: block;">Nenhuma tesouro por perto.</div>
 
     <!-- Texto 3 (inicialmente oculto) -->
     <div class="top-text" id="texto3" style="display: none;">Há um tesouro por perto!</div>
@@ -19,7 +19,7 @@
   <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
             <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
     <!-- Adiciona o primeiro objeto GLTF -->
-    <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    <a-entity gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
 
     <!-- Adiciona o segundo objeto GLTF -->
     <a-entity gltf-model="./assets/sign/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Texto 2 (inicialmente oculto) -->
-    <div class="bottom-text" id="texto2" style="display: none;">Desvende a charada!</div>
+    <div class="bottom-text" id="texto2" style="display: block;">Desvende a charada!</div>
 
     <!-- Distância entre o usuário e os objetos (inicialmente oculta) -->
     <div class="bottom-text" id="distancia" style="display: none;"></div>
@@ -59,8 +59,6 @@
       // Coordenadas dos objetos (defina as coordenadas corretas)
       var latObjeto1 = -19.987079;
       var lonObjeto1 = -43.963870;
-      var latObjeto2 = -19.987179;
-      var lonObjeto2 = -43.963970;
 
       // Calcular a distância entre o usuário e os objetos
       var distanciaObjeto1 = calcularDistancia(latUsuario, lonUsuario, latObjeto1, lonObjeto1);
@@ -80,8 +78,11 @@
         document.getElementById('distancia').style.display = 'block';
         document.getElementById('distancia').textContent = "Distância: " + distanciaObjeto1.toFixed(2) + " metros";
         if (distanciaObjeto1 <= 50) {
-          document.querySelector('a-entity[gltf-model="./assets/treasure/scene.gltf"]').setAttribute('visible', true);
+          document.querySelector('a-entity[gltf-model="./assets/treasure/scene.gltf"]').setAttribute('visible', false);
           document.querySelector('a-entity[gltf-model="./assets/sign/scene.gltf"]').setAttribute('visible', true);
+        } else {
+          document.querySelector('a-entity[gltf-model="./assets/treasure/scene.gltf"]').setAttribute('visible', true);
+          document.querySelector('a-entity[gltf-model="./assets/sign/scene.gltf"]').setAttribute('visible', false);
         }
         if (distanciaObjeto1 <= 10) {
           document.getElementById('botao').style.display = 'block';
