@@ -18,8 +18,8 @@
     <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
-        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
-    <a-camera gps-new-camera="gpsMinDistance: 1 minDistance: 0; maxDistance: 50;" rotation-reader></a-camera>
+        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+    <a-camera gps-new-camera="minDistance: 0; maxDistance: 50;" rotation-reader></a-camera>
     
     </a-scene>
 
