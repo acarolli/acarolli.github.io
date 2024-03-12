@@ -7,8 +7,7 @@
     <title>Caça Ao Tesouro - BH</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.3.2/aframe/build/aframe-ar.js"></script>
-
-    <script src="./script.js"></script>
+    <!--<script src="./script.js"></script-->
     <link rel="stylesheet" type="text/css" href="./style.css"/>
 </head>
 
@@ -18,9 +17,9 @@
 <a-scene 
         vr-mode-ui='enabled: false' 
         embedded
-        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
             <a-camera gps-new-camera rotation-reader></a-camera>
-    
+    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
     </a-scene>
 
     <div  class="centered" >
