@@ -1,38 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR GPS Application</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+    <style>
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            z-index: 999;
+        }
+        #button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay">
+        <div id="text1" style="display: block;">Text 1</div>
+        <div id="distance" style="display: none;"></div>
+        <div id="text2" style="display: block;">Text 2</div>
+        <div id="text3" style="display: none;">Text 3</div>
+        <button id="button" style="display: none;">Open Website</button>
+    </div>
 
-    <head>
+    <a-scene gps-camera rotation-reader>
+        <!-- Assets -->
+        <a-asset>
+            <a-entity id="object1" gltf-model="assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870;" scale="0.2 0.2 0.2" visible="true"></a-entity>
+            <a-entity id="object2" gltf-model="assets/sign/scene.gltf" gps-entity-place="latitude: -19.987179; longitude: -43.963970;" scale="0.2 0.2 0.2" visible="true"></a-entity>
+        </a-asset>
+    </a-scene>
 
-        <title>AR.js A-Frame Location-based</title>
+    <script>
+        const MAX_DISTANCE = 200; // Max distance to show texts
+        const MIN_DISTANCE = 50; // Min distance to show distance and object
+        const MIN_BUTTON_DISTANCE = 10; // Min distance to show button
 
-        <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-        <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
-        <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
+        const overlay = document.getElementById('overlay');
+        const text1 = document.getElementById('text1');
+        const distance = document.getElementById('distance');
+        const text2 = document.getElementById('text2');
+        const text3 = document.getElementById('text3');
+        const button = document.getElementById('button');
 
-        <script src="./script.js"></script>
-        <link rel="stylesheet" type="text/css" href="./style.css"/>
+        AFRAME.registerComponent('rotation-reader', {
+            tick: function () {
+                const camera = document.querySelector('[gps-camera]').components.camera.el.object3D;
+                const object1 = document.querySelector('#object1').object3D;
+                const dist = camera.position.distanceTo(object1.position);
 
-    </head>
+                // Show texts based on distance
+                if (dist > MAX_DISTANCE) {
+                    overlay.style.display = 'flex';
+                    text1.style.display = 'block';
+                    text2.style.display = 'block';
+                } else if (dist <= MAX_DISTANCE && dist > MIN_DISTANCE) {
+                    overlay.style.display = 'flex';
+                    text1.style.display = 'none';
+                    text2.style.display = 'none';
+                    text3.style.display = 'block';
+                    distance.style.display = 'block';
+                    distance.textContent = 'Distance: ' + dist.toFixed(2) + ' meters';
+                } else if (dist <= MIN_DISTANCE) {
+                    overlay.style.display = 'none';
+                    document.querySelector('#object1').setAttribute('visible', true);
+                    document.querySelector('#object2').setAttribute('visible', true);
 
-    <body>
-<a-scene 
-        vr-mode-ui='enabled: false' 
-        embedded
-        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
-            <a-camera gps-camera='gpsMinDistance: 5' rotation-reader></a-camera>
-            <!--<a-entity id="idred" gltf-model="assets/treasure/scene.gltf" animation-mixer gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
-            <a-entity id="idblue" gltf-model="url(/assets/treasure/scene.gltf" animation-mixer gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="idred" gltf-model="url(./assets/treasure/scene.gltf)" animation-mixer gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
-            <a-entity id="idblue" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="1 1 1" visible="true"></a-entity-->
-            <a-entity id="idgreen" material='color: green' geometry='primitive: box' gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="10 10 10" visible="false"></a-entity>
-            <a-entity id="idyellow" material='color: yellow' geometry='primitive: box' gps-new-entity-place="latitude: -19.987279; longitude: -43.964070" scale="10 10 10" visible="true"></a-entity>
-        </a-scene>
-
-        <div  class="centered" >
-            <button id="button" type="button" onclick="toggleVisibility()">Aqui</button>
-            <button id="button2" type="button" onclick="openWebsite()">Site</button>
-        </div>
-
-    </body>
-
+                    if (dist <= MIN_BUTTON_DISTANCE) {
+                        button.style.display = 'block';
+                        button.addEventListener('click', () => {
+                            window.open('https://example.com', '_blank');
+                        });
+                    } else {
+                        button.style.display = 'none';
+                        button.removeEventListener('click', () => {
+                            window.open('https://example.com', '_blank');
+                        });
+                    }
+                }
+            }
+        });
+    </script>
+</body>
 </html>
