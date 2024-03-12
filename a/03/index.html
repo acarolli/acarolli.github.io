@@ -99,6 +99,34 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
             window.open("https://www.invisio360.com", "_blank");
             //alert('Opening website...');
         }
+
+                window.addEventListener('gps-camera-update-position', function(e) {
+            const userLatitude = e.detail.position.latitude;
+            const userLongitude = e.detail.position.longitude;
+
+            // Coordinates for each object
+            const objectCoordinates = [
+                { latitude: -19.987079, longitude: -43.963870 },
+            ];
+
+            // Check distance for each object
+            objectCoordinates.forEach(function(coord) {
+                const distance = calculateDistance(userLatitude, userLongitude, coord.latitude, coord.longitude);
+                
+
+                if (distance <= 200) {
+                    // Show button if user is 10 meters away
+                    var x = document.getElementById("button");
+                    if (distance <= 10) {
+                        x.style.display = "block";
+                      } else {
+                        x.style.display = "none";
+                      } 
+                    // Show proximity and distance text
+                    updateProximity(distance);
+                } 
+            });
+        });
     </script>
     
 </body>
