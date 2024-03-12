@@ -23,10 +23,12 @@
     <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
     <a-entity id="invisible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
     </a-scene>
+
 <div  class="centered" >
     <div class="button" onclick="toggleVisibility()">Toggle Visibility</div>
 </div>
     <div class="bottom-text" id="bottomdiv"> </div>
+
     <script>
         // Function to calculate distance between two coordinates
   function toggleVisibility() {
@@ -42,5 +44,6 @@
       }
     }
     </script>
+    
 </body>
 </html>
