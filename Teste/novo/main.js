@@ -10,11 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Localizações -->
 
-    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="false"></a-entity>
+    <a-entity id="object01" gltf-model="./assets/treasure/scene.gltf" gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.2 0.2 0.2" visible="true"></a-entity>
+    <a-entity id="object02" gltf-model="./assets/sign/scene.gltf" gps-new-entity-place="latitude: -19.987179; longitude: -43.963970" scale="0.2 0.2 0.2" visible="false"></a-entity>
     
     </a-scene>
     <div  class="centered" >
     <button id="button" type="button" hidden="hidden" onclick="openWebsite()"></button>
+</div>
+<div  class="centered" >
+    <button type="button" hidden="hidden" onclick="clickView()"></button>
 </div>
 <script>
         // Function to calculate distance between two coordinates
@@ -31,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
             const d = R * c; // Distance in meters
-            return d;
+            return distance;
         }
 
         // Function to update proximity text and distance
@@ -64,6 +68,17 @@ document.addEventListener('DOMContentLoaded', function() {
             window.open("https://www.invisio360.com", "_blank");
             //alert('Opening website...');
         }
+        function clickView() {
+         var x = document.getElementById("object01");
+         var t = document.getElementById("object02");
+              if (x === "true") {
+                x.setAttribute("visible",false);
+                y.setAttribute("visible",true);
+              } else {
+                x.setAttribute("visible",true);
+                y.setAttribute("visible",false);
+              }
+            }
 
         // Event listener for location update
         window.addEventListener('gps-camera-update-position', function(e) {
