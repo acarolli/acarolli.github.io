@@ -23,8 +23,8 @@
 
     <a-camera gps-new-camera rotation-reader></a-camera>
 
-    <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.01 0.01 0.01" visible="false"></a-entity>
-    <a-entity id="invisible-object" gltf-model="./assets/placa/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963880" scale="0.07 0.07 0.07" visible="false"></a-entity>
+    <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -22.419286954429285; longitude: -45.46938701873028" scale="0.01 0.01 0.01" visible="false"></a-entity>
+    <a-entity id="invisible-object" gltf-model="./assets/placa/scene.gltf" animation-mixer gps-new-entity-place="latitude: -22.419286954429285; longitude: -45.46939701873028" scale="0.07 0.07 0.07" visible="false"></a-entity>
     
     </a-scene>
 
@@ -100,7 +100,7 @@
 
             // Coordinates for each object
             const objectCoordinates = [
-                { latitude: -19.987079, longitude: -43.963870 },
+                { latitude: -22.419286954429285, longitude: -45.46938701873028 },
                 //{ latitude: -19.973211; longitude: -43.969754 },
                 //{ latitude: -19.985079; longitude: -43.961870 },
                 //{ latitude: -19.984079; longitude: -43.960870 },
@@ -122,25 +122,25 @@
                     topdiv.innerHTML = ('Nenhuma dica por perto.');
                     bottomdiv.innerHTML = ('Desvende a charada!');
                     visibleObject.setAttribute('visible', false);
-                    //invisibleObject.setAttribute('visible', false);
+                    invisibleObject.setAttribute('visible', false);
                     button.style.display = "none"
                     updateProximity(distance);                    
                 } else if (distance <= 200 && distance > 50) {
                     topdiv.innerHTML = 'Dica Próxima!';
                     bottomdiv.innerHTML = 'Distancia: '+ distance.toFixed(2) + ' metros';
                     visibleObject.setAttribute('visible', false);
-                    //invisibleObject.setAttribute('visible', false);
+                    invisibleObject.setAttribute('visible', false);
                     button.style.display = "none"
                     updateProximity(distance);
                 } else if (distance <= 50 && distance > 10) {
                     visibleObject.setAttribute('visible', true);
-                    //invisibleObject.setAttribute('visible', true);
+                    invisibleObject.setAttribute('visible', true);
                     button.style.display = "none"    
                     updateProximity(distance);           
                 } else if (distance <= 10){
                     button.style.display = "block"
                     visibleObject.setAttribute('visible', true);
-                    //invisibleObject.setAttribute('visible', true);
+                    invisibleObject.setAttribute('visible', true);
                     updateProximity(distance);
                 } 
                     updateProximity(distance);
