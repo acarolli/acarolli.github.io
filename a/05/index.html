@@ -1,3 +1,36 @@
+<?php
+// Establish MySQL connection
+$servername = "localhost"; // Change this if your database is hosted elsewhere
+$username = "craft38_123admin"; // Replace with your MySQL username
+$password = "emF!YH.!fNV!5D~"; // Replace with your MySQL password
+$database = "craft38_123"; // Replace with your MySQL database name
+
+// Verificando a conexão
+if ($conn->connect_error) {
+    die("Conexão falhou: " . $conn->connect_error);
+}
+
+// Query SQL para obter os valores
+$sql = "SELECT latitude, longitude FROM table1 WHERE nome = 'desafio01'";
+
+$resultado = $conn->query($sql);
+
+// Verificando se a consulta retornou algum resultado
+if ($resultado->num_rows > 0) {
+    // Obtendo o resultado da consulta
+    $row = $resultado->fetch_assoc();
+    
+    // Atribuindo os valores às variáveis
+    $latitudegps = $row["latitude"];
+    $longitudegps = $row["longitude"];
+} else {
+    echo "Nenhum resultado encontrado.";
+}
+
+// Fechando a conexão com o banco de dados
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -10,11 +43,72 @@
     <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-animation-mixer/dist/aframe-animation-mixer.min.js"></script>
     
-    <link rel="stylesheet" type="text/css" href="./style.css"/>
+
+    <style  type=text/css>
+        .centered {
+    height: 20%;
+    justify-content: center;
+    position: fixed;
+    bottom: 0%;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0px auto;
+    left: 0;
+    right: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    background-color: transparent;
+    width: 2em;
+    height: 2em;
+    border-radius: 100%;
+    font-size: 2em;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    outline: none;
+    display: none;
+}
+
+.instructions {
+    position: fixed;
+    top: 5%;
+    font-size: 1.25em;
+    color: white;
+    z-index: 999999;
+}
+
+.top-text {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.bottom-text {
+    background-color: #444;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+    </style>
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-    <div class="top-text" id="topdiv">Carregando Informações</div>
+    <div class="top-text" id="topdiv"><?php echo $latitudegps; ?></div>
 
     <a-scene 
         vr-mode-ui='enabled: false' 
@@ -23,7 +117,7 @@
 
     <a-camera gps-new-camera rotation-reader></a-camera>
 
-    <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963870" scale="0.01 0.01 0.01" visible="false"></a-entity>
+    <a-entity id="visible-object" gltf-model="./assets/treasure/scene.gltf" animation-mixer gps-new-entity-place="latitude: <?php echo $latitudegps; ?>; longitude: longitudegps" scale="0.01 0.01 0.01" visible="false"></a-entity>
     <a-entity id="invisible-object" gltf-model="./assets/placa/scene.gltf" animation-mixer gps-new-entity-place="latitude: -19.987079; longitude: -43.963880" scale="0.07 0.07 0.07" visible="false"></a-entity>
     
     </a-scene>
@@ -101,10 +195,6 @@
             // Coordinates for each object
             const objectCoordinates = [
                 { latitude: -19.987079, longitude: -43.963870 },
-                //{ latitude: -19.973211; longitude: -43.969754 },
-                //{ latitude: -19.985079; longitude: -43.961870 },
-                //{ latitude: -19.984079; longitude: -43.960870 },
-                // Add coordinates for all 25 objects
             ];
 
             // Check distance for each object
@@ -148,6 +238,9 @@
         });
 
     </script>
-    
+    <?php
+// Close MySQL connection
+$conn->close();
+?>
 </body>
 </html>
