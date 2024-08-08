@@ -1,38 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Object Placement</title>
+    <title>AR.js with THREE.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <style>
         body { margin: 0; }
-        #arCanvas { width: 100vw; height: 100vh; display: block; }
+        #container { width: 100vw; height: 100vh; }
     </style>
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.140.2/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.140.2/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe@1.2.0/dist/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-ar@3.1.2/dist/aframe-ar.js"></script>
-    
-    <a-scene embedded arjs>
-        <a-marker preset="hiro">
-            <a-entity id="gltf-model" gltf-model="#model" scale="0.5 0.5 0.5"></a-entity>
-        </a-marker>
-        <a-entity camera></a-entity>
-    </a-scene>
+    <div id="container">
+        <a-scene embedded arjs>
+            <a-marker preset="hiro">
+                <a-entity id="model" 
+                          gltf-model="#model" 
+                          scale="0.5 0.5 0.5" 
+                          position="0 0 0">
+                </a-entity>
+            </a-marker>
+            <a-entity camera></a-entity>
+        </a-scene>
+    </div>
 
+    <!-- Load the model -->
     <script>
-        // Load GLTF model
-        const sceneEl = document.querySelector('a-scene');
-        const modelEl = document.querySelector('#gltf-model');
-
-        // Path to your GLTF model
-        const modelUrl = 'treasure/scene.gltf';
-
-        // Load the model when the scene is ready
-        sceneEl.addEventListener('loaded', () => {
-            modelEl.setAttribute('gltf-model', modelUrl);
+        AFRAME.registerComponent('model-rotator', {
+            tick: function () {
+                this.el.object3D.rotation.y += 0.01;
+            }
         });
     </script>
 </body>
