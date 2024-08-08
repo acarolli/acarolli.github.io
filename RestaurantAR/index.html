@@ -3,17 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR 3D Object Placement</title>
+    <title>AR Object Placement</title>
     <style>
-        body { margin: 0; overflow: hidden; }
-        canvas { display: block; }
+        body { margin: 0; }
+        #arCanvas { width: 100vw; height: 100vh; display: block; }
     </style>
 </head>
 <body>
-    <div id="ar-container"></div>
-    <script src="https://threejs.org/build/three.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex.js"></script>
-    <script src="scripts.js"></script>
-    <script src="https://threejs.org/examples/jsm/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.140.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.140.2/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe@1.2.0/dist/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-ar@3.1.2/dist/aframe-ar.js"></script>
+    
+    <a-scene embedded arjs>
+        <a-marker preset="hiro">
+            <a-entity id="gltf-model" gltf-model="#model" scale="0.5 0.5 0.5"></a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+        // Load GLTF model
+        const sceneEl = document.querySelector('a-scene');
+        const modelEl = document.querySelector('#gltf-model');
+
+        // Path to your GLTF model
+        const modelUrl = 'treasure/scene.gltf';
+
+        // Load the model when the scene is ready
+        sceneEl.addEventListener('loaded', () => {
+            modelEl.setAttribute('gltf-model', modelUrl);
+        });
+    </script>
 </body>
 </html>
