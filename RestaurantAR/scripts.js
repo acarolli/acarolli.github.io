@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const categories = [
         { id: "entradas", name: "Entradas", items: [
-            { name: "Item 1", modelUrl: "modelos3d/default.html" },
+            { name: "Item 1", modelUrl: "modelos3d/objeto1.html" },
             { name: "Item 2", modelUrl: "modelos3d/objeto2.html" },
             // Continue adicionando os itens aqui
         ] },
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const div = document.createElement("div");
             div.className = "item";
             div.textContent = item.name;
-            div.addEventListener("click", () => load3DModel(item.modelUrl));
+            div.addEventListener("click", () => redirectToARPage(item.modelUrl));
             section.appendChild(div);
         });
 
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function load3DModel(modelUrl) {
-    const iframe = document.getElementById('ar-view');
-    iframe.src = modelUrl;
+function redirectToARPage(modelUrl) {
+    // Redireciona para a página do item com o parâmetro do URL
+    window.location.href = `item.html?modelUrl=${encodeURIComponent(modelUrl)}`;
 }

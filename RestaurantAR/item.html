@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exibição do Item</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Experiência de Realidade Aumentada</h1>
+    </header>
+    <main>
+        <div id="ar-container">
+            <iframe id="ar-view" src="" frameborder="0"></iframe>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Restaurante. Todos os direitos reservados.</p>
+    </footer>
+    <script>
+        // Obtém o parâmetro da URL para carregar o modelo correspondente
+        const urlParams = new URLSearchParams(window.location.search);
+        const modelUrl = urlParams.get('modelUrl');
+
+        if (modelUrl) {
+            document.getElementById('ar-view').src = modelUrl;
+        }
+    </script>
+</body>
+</html>
