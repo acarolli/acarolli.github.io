@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const categories = [
         { id: "entradas", name: "Entradas", items: [
-            { name: "Item 1", modelUrl: "modelos3d/objeto1.html" },
+            { name: "Item 1", modelUrl: "modelos3d/default.html" },
             { name: "Item 2", modelUrl: "modelos3d/objeto2.html" },
             // Continue adicionando os itens aqui
         ] },
