@@ -1,39 +1,105 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const categories = [
-        { id: "entradas", name: "Entradas", items: [
-            { name: "Item 1", modelUrl: "modelos3d/objeto1.html" },
-            { name: "Item 2", modelUrl: "modelos3d/objeto2.html" },
-            // Continue adicionando os itens aqui
-        ] },
-        { id: "porcoes", name: "Porções", items: [/* Adicione os itens aqui */] },
-        { id: "guarnicoes", name: "Guarnições", items: [/* Adicione os itens aqui */] },
-        // Outras categorias
-    ];
+let scene, camera, renderer, arToolkitSource, arToolkitContext;
+let markerRoot, loadedModel;
 
-    const menu = document.getElementById("menu");
+init();
+animate();
 
-    categories.forEach(category => {
-        const section = document.createElement("section");
-        section.className = "category";
-        section.id = category.id;
+function init() {
+    // Configuração da cena, câmera, renderer e AR
+    scene = new THREE.Scene();
+    camera = new THREE.Camera();
+    scene.add(camera);
 
-        const title = document.createElement("h2");
-        title.textContent = category.name;
-        section.appendChild(title);
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.body.appendChild(renderer.domElement);
 
-        category.items.forEach(item => {
-            const div = document.createElement("div");
-            div.className = "item";
-            div.textContent = item.name;
-            div.addEventListener("click", () => redirectToARPage(item.modelUrl));
-            section.appendChild(div);
-        });
+    arToolkitSource = new THREEx.ArToolkitSource({ sourceType: 'webcam' });
 
-        menu.appendChild(section);
+    arToolkitSource.init(function onReady() {
+        onResize();
     });
-});
 
-function redirectToARPage(modelUrl) {
-    // Redireciona para a página do item com o parâmetro do URL
-    window.location.href = `item.html?modelUrl=${encodeURIComponent(modelUrl)}`;
+    window.addEventListener('resize', onResize);
+
+    arToolkitContext = new THREEx.ArToolkitContext({
+        cameraParametersUrl: 'https://cdn.rawgit.com/artoolkit/artoolkit5/5.3.1/doc/patterns/camera_para.dat',
+        detectionMode: 'mono'
+    });
+
+    arToolkitContext.init(function onCompleted() {
+        camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+    });
+
+    markerRoot = new THREE.Group();
+    scene.add(markerRoot);
+
+    // Carregando o modelo GLTF
+    let loader = new THREE.GLTFLoader();
+    loader.load('treasure/scene.gltf', function(gltf) {
+        loadedModel = gltf.scene;
+        loadedModel.scale.set(0.5, 0.5, 0.5); // Ajuste a escala conforme necessário
+        markerRoot.add(loadedModel);
+    }, undefined, function(error) {
+        console.error(error);
+    });
+}
+
+function onResize() {
+    arToolkitSource.onResizeElement();
+    arToolkitSource.copyElementSizeTo(renderer.domElement);
+    if (arToolkitContext.arController !== null) {
+        arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
+    }
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+
+    if (arToolkitSource.ready !== false)
+        arToolkitContext.update(arToolkitSource.domElement);
+
+    renderer.render(scene, camera);
+}
+
+// Código para interação com objetos 3D
+document.addEventListener('mousedown', onDocumentMouseDown, false);
+document.addEventListener('mousemove', onDocumentMouseMove, false);
+document.addEventListener('mouseup', onDocumentMouseUp, false);
+
+let selectedObject = null;
+let mouse = new THREE.Vector2();
+
+function onDocumentMouseDown(event) {
+    event.preventDefault();
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    let raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, camera);
+
+    let intersects = raycaster.intersectObjects(markerRoot.children);
+    if (intersects.length > 0) {
+        selectedObject = intersects[0].object;
+    }
+}
+
+function onDocumentMouseMove(event) {
+    if (selectedObject) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        let raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, camera);
+
+        let intersects = raycaster.intersectObjects(markerRoot.children);
+        if (intersects.length > 0) {
+            selectedObject.position.copy(intersects[0].point);
+        }
+    }
+}
+
+function onDocumentMouseUp(event) {
+    selectedObject = null;
 }

@@ -1,35 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu do Restaurante</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>AR 3D Object Placement</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Menu do Restaurante</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#entradas">Entradas</a></li>
-            <li><a href="#porcoes">Porções</a></li>
-            <li><a href="#guarnicoes">Guarnições</a></li>
-            <li><a href="#bebidas">Bebidas</a></li>
-            <li><a href="#bebidas_sem_alcool">Bebidas sem Álcool</a></li>
-            <li><a href="#prato_principal">Prato Principal</a></li>
-            <li><a href="#sobremesas">Sobremesas</a></li>
-            <li><a href="#massas">Massas</a></li>
-            <li><a href="#especiais">Especiais da Casa</a></li>
-            <li><a href="#vinhos">Vinhos</a></li>
-        </ul>
-    </nav>
-    <main id="menu">
-        <!-- Categorias e Itens do Menu serão inseridos aqui -->
-    </main>
-    <footer>
-        <p>&copy; 2024 Restaurante. Todos os direitos reservados.</p>
-    </footer>
+    <div id="ar-container"></div>
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex.js"></script>
     <script src="scripts.js"></script>
+    <script src="https://threejs.org/examples/jsm/loaders/GLTFLoader.js"></script>
 </body>
 </html>
