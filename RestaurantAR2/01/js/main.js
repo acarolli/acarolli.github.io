@@ -5,7 +5,7 @@ AFRAME.registerComponent('gesture-handler-horizontal', {
 
   init: function () {
     this.internalState = {
-      previousPosition: null,
+      previousRotation: null,
     };
 
     this.handleDrag = this.handleDrag.bind(this);
@@ -24,14 +24,14 @@ AFRAME.registerComponent('gesture-handler-horizontal', {
   },
 
   handleDrag: function (event) {
-    const { previousPosition } = this.internalState;
+    const { previousRotation } = this.internalState;
     const currentPosition = event.detail.position;
 
-    if (previousPosition) {
-      const deltaX = currentPosition.x - previousPosition.x;
-      this.el.object3D.position.x += deltaX;
+    if (previousRotation) {
+      const deltaX = currentPosition.x - previousRotation.x;
+      this.el.object3D.rotation.y += deltaX * 2;  // Multiplique para ajustar a sensibilidade
     }
 
-    this.internalState.previousPosition = currentPosition;
+    this.internalState.previousRotation = currentPosition;
   },
 });
