@@ -1,26 +1,29 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Caça Ao Tesouro - BH</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante 3D - In Visio 360</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
-    
-    <link rel="stylesheet" type="text/css" href="./style.css"/>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <link rel="stylesheet" href="./style.css">
 </head>
-
-<body style='margin: 0; overflow: hidden;'>
-    <div class="top-text" id="topdiv"> </div>
+<body style="margin: 0; overflow: hidden;">
+    <div class="top-text" id="topdiv"></div>
 
     <a-scene 
-        vr-mode-ui='enabled: false' 
-        embedded
-        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
-    <a-camera gps-new-camera="minDistance: 0; maxDistance: 50;" rotation-reader></a-camera>
-    <a-marker type="pattern" url="assets/marker.patt">
+        vr-mode-ui="enabled: false" 
+        embedded 
+        arjs="sourceType: webcam; sourceWidth: 1280; sourceHeight: 960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;">
+        
+        <a-marker type="pattern" url="assets/marker.patt">
             <a-entity id="modelo" gltf-model="assets/modelo.gltf" scale="0.5 0.5 0.5" gesture-handler></a-entity>
         </a-marker>
+
+        <a-entity camera></a-entity>
     </a-scene>
+
+    <script src="script.js"></script>
 </body>
 </html>
